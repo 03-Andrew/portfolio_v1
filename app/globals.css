@@ -48,6 +48,7 @@
 }
 
 body {
+  overflow-x: hidden;
   /* background:
     radial-gradient(circle, var(--dot-color) 1.5px, transparent 1.5px),
     var(--color-canvas);

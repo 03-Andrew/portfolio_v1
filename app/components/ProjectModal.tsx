@@ -144,7 +144,7 @@ export default function ProjectModal({
         aria-modal="true"
         aria-label={project.title}
         tabIndex={-1}
-        className="relative w-full max-w-2xl max-h-[90svh] overflow-y-auto rounded-xl bg-surface border border-border shadow-2xl outline-none"
+        className="relative w-full max-w-2xl max-h-[90svh] overflow-y-auto rounded-sm bg-surface border border-border shadow-2xl outline-none"
         style={{
           animation: prefersReduced
             ? "none"
@@ -155,7 +155,7 @@ export default function ProjectModal({
         <button
           onClick={close}
           aria-label="Close"
-          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-xl bg-surface-elevated border border-border flex items-center justify-center text-text-muted hover:text-orange hover:border-orange/30 transition-colors duration-200"
+          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-md bg-surface-elevated border border-border flex items-center justify-center text-text-muted hover:text-orange hover:border-orange/30 transition-colors duration-200"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -188,7 +188,7 @@ export default function ProjectModal({
             {project.description}
           </p>
 
-          <p className="text-sm text-text-muted leading-relaxed bg-surface-elevated rounded-xl p-4 border border-border">
+          <p className="text-sm text-text-muted leading-relaxed bg-surface-elevated rounded-lg p-4 border border-border">
             {project.role}
           </p>
 
@@ -197,7 +197,7 @@ export default function ProjectModal({
               {project.stack.map((s) => (
                 <span
                   key={s}
-                  className="font-mono text-xs px-3 py-1.5 rounded-lg bg-surface-elevated text-text-secondary border border-border"
+                  className="font-mono text-xs px-3 py-1.5 rounded-md bg-surface-elevated text-text-secondary border border-border"
                 >
                   {s}
                 </span>

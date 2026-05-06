@@ -37,13 +37,13 @@ export default function AchievementRow({
   return (
     <div
       ref={ref}
-      className={`group relative flex items-start gap-4 sm:gap-5 p-4 sm:p-5 rounded-xl bg-surface border border-border hover:border-orange/15 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_-4px_var(--color-orange)/0.1] transition-all duration-500 ${
+      className={`group relative flex items-start gap-4 sm:gap-5 p-4 sm:p-5 rounded-lg bg-surface border border-border hover:border-orange/15 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_-4px_var(--color-orange)/0.1] transition-all duration-500 ${
         visible
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-4"
       }`}
     >
-      <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-orange/[0.06] flex items-center justify-center text-base sm:text-lg">
+      <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-orange/[0.06] flex items-center justify-center text-base sm:text-lg">
         {type === "cert" ? <ShieldIcon /> : <TrophyIcon />}
       </div>
 

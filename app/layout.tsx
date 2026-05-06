@@ -35,7 +35,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="dark"
-      className={`${geist.variable} ${geistMono.variable} ${sora.variable} h-full antialiased`}
+      className={`${geist.variable} ${geistMono.variable} ${sora.variable} h-full antialiased overflow-x-hidden`}
       suppressHydrationWarning
     >
       <head>

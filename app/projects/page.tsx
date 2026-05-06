@@ -122,7 +122,7 @@ export default function ProjectsPage() {
             {allCerts.map((c) => (
               <div
                 key={c.label}
-                className="flex flex-col gap-2 p-5 rounded-xl bg-surface border border-border"
+                className="flex flex-col gap-2 p-5 rounded-lg bg-surface border border-border"
               >
                 <span className="font-mono text-[10px] tracking-widest uppercase text-orange-muted">
                   {c.type}
@@ -137,7 +137,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <footer className="px-6 py-8 border-t border-border">
+      <footer className="px-6 py-8 border-t border-orange/20">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center text-sm text-text-muted">
           <Link href="/" className="text-text-secondary hover:text-orange transition-colors duration-200">
             Back to home
