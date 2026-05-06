@@ -1,14 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import ProjectModal, { type ProjectData } from "./components/ProjectModal";
-import MagneticArea from "./components/MagneticArea";
-import ParallaxSection from "./components/ParallaxSection";
+import Section from "./components/Section";
 import SideNav from "./components/SideNav";
-import ScrambleText from "./components/ScrambleText";
-import BentoCard from "./components/BentoCard";
-import CredentialBadge from "./components/CredentialBadge";
+import SystemGraph from "./components/SystemGraph";
+import ProjectVisual from "./components/ProjectVisual";
 import { projects } from "./data/projects";
 
 export default function Home() {
@@ -19,21 +16,18 @@ export default function Home() {
       <SideNav />
 
       {/* Hero */}
-      <ParallaxSection
+      <Section
         id="hero"
-        bg="canvas"
-        z={1}
-        first
         className="overflow-hidden px-6 sm:px-10 lg:px-16 min-h-[100svh] flex items-center"
       >
         <div
           aria-hidden="true"
-          className="absolute top-0 right-0 w-[70%] h-full bg-orange/6 blur-3xl rounded-full translate-x-1/4 -translate-y-1/3"
+          className="absolute top-0 right-0 w-[70%] h-full bg-orange/6 blur-3xl rounded-full animate-blob animate-delay-1 translate-x-1/4 -translate-y-1/3"
         />
-        <div
+        {/* <div
           aria-hidden="true"
-          className="absolute bottom-0 left-0 w-96 h-96 bg-orange-deep/12 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2"
-        />
+          className="absolute bottom-0 left-0 w-96 h-96 bg-orange-deep/12 blur-3xl rounded-full animate-blob-alt animate-delay-2 -translate-x-1/2 translate-y-1/2"
+        /> */}
 
         <div className="relative max-w-5xl mx-auto w-full py-20">
           <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[1fr_auto] lg:gap-16 lg:items-center">
@@ -54,7 +48,7 @@ export default function Home() {
                 keeping things boring where it counts. Based in the Philippines.
               </p>
 
-              <MagneticArea className="flex items-center gap-4 mt-4">
+              <div className="flex items-center gap-4 mt-4">
                 <button
                   onClick={() =>
                     document
@@ -75,30 +69,28 @@ export default function Home() {
                 >
                   Download Resume
                 </a>
-              </MagneticArea>
+              </div>
             </div>
 
-            <div
-              aria-hidden="true"
-              className="hidden lg:flex flex-col gap-2 font-mono text-xs text-orange/40 leading-relaxed select-none bg-surface/70 rounded-2xl p-5 border border-border/50 backdrop-blur-sm"
-            >
-              <span className="text-orange/60">$ whoami</span>
-              <span><ScrambleText text="andrew :: backend_dev :: cloud_aspirant" /></span>
-              <span className="mt-3 text-orange/60">$ cat location</span>
-              <span><ScrambleText text="Philippines (GMT+8)" /></span>
-              <span className="mt-3 text-orange/60">$ cat stacks.txt</span>
-              <span><ScrambleText text="django . fastapi . nextjs . n8n" /></span>
+            <div className="hidden lg:block relative min-h-[320px] w-full max-w-[420px]">
+              <SystemGraph />
             </div>
           </div>
         </div>
-      </ParallaxSection>
+      </Section>
+
+      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
+      </div>
 
       {/* Experience */}
-      <ParallaxSection id="experience" bg="surface" z={2} className="px-6 py-24 sm:px-10 sm:py-32 lg:px-16 lg:py-40">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-16">
-            <span className="w-8 h-px bg-orange inline-block align-middle mr-3" />
-            <span className="font-mono text-sm tracking-widest uppercase text-orange align-middle">
+      <Section stagger id="experience" className="relative px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+        <div aria-hidden="true" className="absolute top-0 right-0 w-[60%] h-full bg-orange-deep/5 blur-3xl rounded-full animate-blob-alt animate-delay-3 translate-x-1/3 -translate-y-1/3" />
+        <div className="max-w-5xl mx-auto relative">
+          <div className="mb-12">
+            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">01</span>
+            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
               Experience
             </span>
           </div>
@@ -135,76 +127,132 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </ParallaxSection>
+      </Section>
+
+      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
+      </div>
 
       {/* Projects */}
-      <ParallaxSection id="projects" bg="canvas" z={3} className="px-6 py-24 sm:px-10 sm:py-32 lg:px-16 lg:py-40">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-16">
-            <span className="w-8 h-px bg-orange inline-block align-middle mr-3" />
-            <span className="font-mono text-sm tracking-widest uppercase text-orange align-middle">
+      <Section stagger id="projects" className="relative px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+        <div aria-hidden="true" className="absolute bottom-0 left-0 w-[50%] h-80 bg-amber/4 blur-3xl rounded-full animate-blob-wide animate-delay-1 -translate-x-1/3 translate-y-1/3" />
+        <div className="max-w-5xl mx-auto relative">
+          <div className="mb-12">
+            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">02</span>
+            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
               Projects
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-            <BentoCard
-              project={projects[0]}
-              index={1}
-              className="lg:col-span-2 lg:row-span-1"
-              large
-              onClick={() => setSelectedProject(projects[0])}
-            />
-            <BentoCard
-              project={projects[1]}
-              index={2}
-              className="lg:col-span-1"
-              onClick={() => setSelectedProject(projects[1])}
-            />
-            <BentoCard
-              project={projects[2]}
-              index={3}
-              className="lg:col-span-3"
-              wide
-              onClick={() => setSelectedProject(projects[2])}
-            />
-          </div>
-
-          <div className="mt-24">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-3 group font-mono text-sm tracking-widest uppercase text-orange hover:text-orange-bright transition-colors duration-200"
-            >
-              <span className="w-8 h-px bg-orange/40 group-hover:w-14 group-hover:bg-orange transition-all duration-300" />
-              View all projects
-            </Link>
+          <div className="border-t-2 border-orange/30">
+            {projects.map((project, i) => {
+              const isEven = i % 2 === 0;
+              const labels = ["AI AUTOMATION", "FULL-STACK", "AI + SPEECH"];
+              const actions = ["View Project", "View Project", "View Project"];
+              return (
+                <article
+                  key={project.title}
+                  onClick={() => setSelectedProject(project)}
+                  className={`group cursor-pointer flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} border-b border-border/30 hover:bg-surface/40 transition-all duration-500`}
+                >
+                  <div className={`w-full md:w-2/5 aspect-[4/3] overflow-hidden bg-surface-elevated/20 flex items-center justify-center ${isEven ? "md:border-r" : "md:border-l"} border-border/10 group-hover:bg-surface-elevated/40 transition-colors duration-500`}>
+                    <div className="scale-90 group-hover:scale-100 transition-transform duration-700">
+                      <ProjectVisual type={project.visual!} />
+                    </div>
+                  </div>
+                  <div className="w-full md:w-3/5 p-8 md:p-10 flex flex-col justify-between gap-6">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-orange-muted block mb-2">
+                          {String(i + 1).padStart(2, "0")} / {labels[i]}
+                        </span>
+                        <h3 className="font-heading text-xl sm:text-2xl text-text-primary leading-tight group-hover:text-orange transition-colors duration-300">
+                          {project.title}
+                        </h3>
+                      </div>
+                      <span className="font-mono text-[10px] tracking-widest uppercase border border-border/30 px-3 py-1.5 rounded-full text-text-muted shrink-0 ml-4">
+                        {project.tech}
+                      </span>
+                    </div>
+                    <div className="flex flex-col md:flex-row justify-between items-end gap-6">
+                      <p className="text-text-secondary text-sm leading-relaxed max-w-lg">
+                        {project.description.slice(0, 140)}&hellip;
+                      </p>
+                      <span className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-orange group-hover:gap-3 transition-all duration-300 shrink-0">
+                        <span className="w-6 h-px bg-orange/40 group-hover:w-10 group-hover:bg-orange transition-all duration-300" />
+                        {actions[i]}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
-      </ParallaxSection>
+      </Section>
+
+      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
+      </div>
 
       {/* Credentials */}
-      <ParallaxSection id="credentials" bg="surface" z={4} className="px-6 py-24 sm:px-10 sm:py-32 lg:px-16 lg:py-40">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-16">
-            <span className="w-8 h-px bg-orange inline-block align-middle mr-3" />
-            <span className="font-mono text-sm tracking-widest uppercase text-orange align-middle">
+      <Section stagger id="credentials" className="relative px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+        <div aria-hidden="true" className="absolute top-1/2 right-0 w-72 h-72 bg-orange-deep/6 blur-3xl rounded-full animate-blob-slow animate-delay-2 translate-x-1/2 -translate-y-1/2" />
+        <div className="max-w-5xl mx-auto relative">
+          <div className="mb-12">
+            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">03</span>
+            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
               Credentials
             </span>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-10 sm:gap-20">
-            <CredentialBadge label="CCNA" detail="Cisco Certified Network Associate" type="cert" delay={0} />
-            <CredentialBadge label="2nd Place" detail="Inter-school Coding Competition" type="award" delay={200} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-5 sm:p-6 border border-border/30 bg-surface/30 flex flex-col justify-between hover:bg-surface transition-colors duration-500">
+              <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-orange-muted">NETWORKING</span>
+              <div>
+                <h4 className="font-heading text-lg sm:text-xl text-text-primary mb-1">CCNA</h4>
+                <p className="text-text-secondary text-sm leading-relaxed">Cisco Certified Network Associate</p>
+              </div>
+              <span className="font-mono text-[10px] tracking-widest uppercase border-t border-border/20 pt-4 text-text-muted">Networking · Routing · Switching · Security</span>
+            </div>
+            <div className="p-5 sm:p-6 border border-border/30 bg-surface/30 flex flex-col justify-between hover:bg-surface transition-colors duration-500">
+              <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-orange-muted">COMPETITION</span>
+              <div>
+                <h4 className="font-heading text-lg sm:text-xl text-text-primary mb-1">2nd Place</h4>
+                <p className="text-text-secondary text-sm leading-relaxed">Inter-school Coding Competition</p>
+              </div>
+              <span className="font-mono text-[10px] tracking-widest uppercase border-t border-border/20 pt-4 text-text-muted">2024</span>
+            </div>
           </div>
+
+          <div className="mt-16 text-center">
+            <a
+              href="#"
+              className="inline-flex items-center gap-3 group font-mono text-xs sm:text-sm tracking-widest uppercase text-orange hover:text-orange-bright transition-colors duration-200"
+              onClick={(e) => e.preventDefault()}
+            >
+              <span className="w-8 h-px bg-orange/40 group-hover:w-14 group-hover:bg-orange transition-all duration-300" />
+              See more
+            </a>
+          </div>
+
         </div>
-      </ParallaxSection>
+      </Section>
+
+      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
+      </div>
 
       {/* About */}
-      <ParallaxSection id="about" bg="canvas" z={5} className="px-6 py-24 sm:px-10 sm:py-32 lg:px-16 lg:py-40">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-16">
-            <span className="w-8 h-px bg-orange inline-block align-middle mr-3" />
-            <span className="font-mono text-sm tracking-widest uppercase text-orange align-middle">
+      <Section stagger id="about" className="relative px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+        <div aria-hidden="true" className="absolute top-0 left-0 w-80 h-80 bg-orange-deep/8 blur-3xl rounded-full animate-blob-alt animate-delay-3 -translate-x-1/3 -translate-y-1/3" />
+        <div className="max-w-5xl mx-auto relative">
+          <div className="mb-12">
+            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">04</span>
+            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
               About
             </span>
           </div>
@@ -236,14 +284,20 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </ParallaxSection>
+      </Section>
+
+      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
+      </div>
 
       {/* Contact */}
-      <ParallaxSection id="contact" bg="surface" z={6} className="px-6 py-24 sm:px-10 sm:py-32 lg:px-16 lg:py-40">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-16">
-            <span className="w-8 h-px bg-orange inline-block align-middle mr-3" />
-            <span className="font-mono text-sm tracking-widest uppercase text-orange align-middle">
+      <Section stagger id="contact" className="relative px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+        <div aria-hidden="true" className="absolute bottom-0 right-0 w-96 h-96 bg-amber/3 blur-3xl rounded-full animate-blob-wide animate-delay-1 translate-x-1/4 translate-y-1/3" />
+        <div className="max-w-5xl mx-auto relative">
+          <div className="mb-12">
+            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">05</span>
+            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
+            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
               Contact
             </span>
           </div>
@@ -302,13 +356,17 @@ export default function Home() {
               </button>
             </form>
 
-            <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center text-sm text-text-muted">
-              <p>Built with Next.js and intent.</p>
-              <p>&copy; {new Date().getFullYear()}</p>
-            </div>
           </div>
         </div>
-      </ParallaxSection>
+      </Section>
+
+      {/* Footer */}
+      <footer className="px-6 py-8 border-t border-border">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center text-sm text-text-muted">
+          <p>Built with Next.js and intent.</p>
+          <p>&copy; {new Date().getFullYear()}</p>
+        </div>
+      </footer>
 
       <ProjectModal
         project={selectedProject}

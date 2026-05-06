@@ -9,6 +9,7 @@ export default function ParallaxSection({
   z = 1,
   bg = "canvas",
   first = false,
+  sticky = true,
 }: {
   id: string;
   children: React.ReactNode;
@@ -16,13 +17,15 @@ export default function ParallaxSection({
   bg?: "canvas" | "surface";
   z?: number;
   first?: boolean;
+  sticky?: boolean;
 }) {
   const { ref, visible } = useReveal();
   const bgClass = bg === "surface" ? "bg-surface" : "bg-canvas";
 
-  const stickyClasses = first
-    ? ""
-    : "sticky top-0 rounded-t-3xl shadow-[0_-1px_0_var(--color-border),0_-16px_40px_rgba(0,0,0,0.08)]";
+  const isSticky = sticky && !first;
+  const stickyClasses = isSticky
+    ? "lg:sticky lg:top-0 lg:rounded-t-3xl lg:shadow-[0_-1px_0_var(--color-border),0_-16px_40px_rgba(0,0,0,0.08)]"
+    : "";
 
   return (
     <section

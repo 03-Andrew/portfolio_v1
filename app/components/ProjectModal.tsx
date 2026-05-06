@@ -144,7 +144,7 @@ export default function ProjectModal({
         aria-modal="true"
         aria-label={project.title}
         tabIndex={-1}
-        className="relative w-full max-w-2xl max-h-[90svh] overflow-y-auto rounded-3xl bg-surface border border-border shadow-2xl outline-none"
+        className="relative w-full max-w-2xl max-h-[90svh] overflow-y-auto rounded-xl bg-surface border border-border shadow-2xl outline-none"
         style={{
           animation: prefersReduced
             ? "none"
