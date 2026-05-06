@@ -283,14 +283,12 @@ export default function Home() {
             <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-base sm:text-lg">
               <p>
                 I write backend code that stays up. Django, FastAPI, Next.js
-                server-side. I care about data models that make sense, APIs that
-                don&apos;t surprise you, and deployments that don&apos;t wake me
-                up at 3am.
+                server-side. I care about clean architecture, solid testing, and good devops practices. 
+                I want to build systems that are reliable, maintainable, and just fun to work with.
               </p>
               <p>
                 Lately wiring AI into real workflows: speech processing
-                pipelines, automated scheduling agents, systems that turn messy
-                human input into structured action. I&apos;m not chasing the
+                pipelines, automated scheduling agents and AI agents. I&apos;m not chasing the
                 latest model; I&apos;m making the plumbing around it solid.
               </p>
               <p>
@@ -381,7 +379,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="px-6 py-8 border-t border-orange/20">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center text-sm text-text-muted">
-          <p>Built with Next.js and intent.</p>
+          <p>Built with Next.js</p>
           <p>&copy; {new Date().getFullYear()}</p>
         </div>
       </footer>
