@@ -1,0 +1,23 @@
+{
+  "id": "b99b72b0",
+  "phase": "completed",
+  "pageUrl": "/",
+  "sourceFile": "app/page.tsx",
+  "expectedVariants": 3,
+  "arrivedVariants": 3,
+  "visibleVariant": 2,
+  "paramValues": {
+    "density": "snug",
+    "dot": 0.5
+  },
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 17,
+  "activeOwner": "1931c40f",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [],
+  "updatedAt": "2026-05-06T07:49:12.972Z"
+}

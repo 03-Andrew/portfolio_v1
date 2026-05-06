@@ -35,7 +35,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="dark"
-      className={`${geist.variable} ${geistMono.variable} ${sora.variable} h-full antialiased`}
+      className={`${geist.variable} ${geistMono.variable} ${sora.variable} h-full antialiased overflow-x-hidden`}
       suppressHydrationWarning
     >
       <head>
@@ -48,6 +48,10 @@ export default function RootLayout({
       <body className="min-h-full bg-canvas text-text-primary font-sans">
         <ThemeProvider>
           <ScrollProgress />
+
+          <div aria-hidden="true" className="hidden lg:block fixed inset-y-0 left-[max(1.5rem,calc((100vw-1024px)/2-28px))] w-px bg-gradient-to-b from-transparent via-orange/25 to-transparent pointer-events-none z-0" />
+          <div aria-hidden="true" className="hidden lg:block fixed inset-y-0 right-[max(1.5rem,calc((100vw-1024px)/2-28px))] w-px bg-gradient-to-b from-transparent via-orange/25 to-transparent pointer-events-none z-0" />
+
           <div className="fixed top-5 right-5 z-50 flex items-center gap-3">
             <ThemeToggle />
           </div>

@@ -22,6 +22,7 @@ export default function BentoCard({
   const ref = useRef<HTMLButtonElement>(null);
   const [visible, setVisible] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [spotlight, setSpotlight] = useState({ x: 0, y: 0, opacity: 0 });
 
   useEffect(() => {
     const el = ref.current;
@@ -39,12 +40,16 @@ export default function BentoCard({
   const onMouseMove = (e: React.MouseEvent) => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: -y * 6, y: x * 6 });
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    // setTilt({ x: -((e.clientY - rect.top) / rect.height - 0.5) * 6, y: ((e.clientX - rect.left) / rect.width - 0.5) * 6 });
+    setSpotlight({ x, y, opacity: 1 });
   };
 
-  const onMouseLeave = () => setTilt({ x: 0, y: 0 });
+  const onMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+    setSpotlight((s) => ({ ...s, opacity: 0 }));
+  };
 
   return (
     <button
@@ -57,8 +62,16 @@ export default function BentoCard({
         opacity: visible ? 1 : 0,
         transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.7s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s",
       }}
-      className={`${className} group/card text-left relative rounded-3xl bg-surface border border-border hover:border-orange/20 overflow-hidden cursor-pointer hover:shadow-lg`}
+      className={`${className} group/card text-left relative rounded-3xl bg-surface border border-border hover:border-orange/20 overflow-hidden cursor-pointer hover:shadow-[0_8px_30px_-6px_var(--color-orange)/0.15]`}
     >
+      <div
+        className="pointer-events-none absolute inset-0 transition-opacity duration-500"
+        style={{
+          opacity: spotlight.opacity,
+          background: `radial-gradient(500px circle at ${spotlight.x}px ${spotlight.y}px, oklch(0.6 0.2 40 / 0.12), transparent 50%)`,
+        }}
+      />
+
       <div className="absolute top-3 right-5 font-heading text-[6rem] sm:text-[7rem] leading-none text-orange/[0.04] select-none pointer-events-none">
         {String(index).padStart(2, "0")}
       </div>
@@ -69,15 +82,15 @@ export default function BentoCard({
         </div>
       </div>
 
-      <div className="p-5 sm:p-6 flex flex-col gap-3">
+      <div className="p-5 sm:p-6 flex flex-col gap-3 relative">
         <span className="font-mono text-xs tracking-widest uppercase text-orange-muted bg-orange/8 px-3 py-1 rounded-full w-fit">
           {project.tech}
         </span>
         <h3 className="font-heading text-xl sm:text-2xl text-text-primary tracking-tight group-hover/card:text-orange transition-colors duration-300">
           {project.title}
         </h3>
-        <p className="text-text-secondary text-sm leading-relaxed">
-          {project.description.slice(0, wide ? 120 : 80)}&hellip;
+        <p className="text-text-secondary text-base leading-relaxed">
+          {project.description.slice(0, wide ? 140 : 100)}&hellip;
         </p>
         <p className="text-xs text-text-muted mt-1">
           {project.role.split(".")[0]}.
