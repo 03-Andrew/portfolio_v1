@@ -5,7 +5,10 @@ import { useEffect, useRef, useCallback } from "react";
 export interface ProjectData {
   title: string;
   tech: string;
+  label: string;
+  date: string;
   description: string;
+  shortDescription: string;
   role: string;
   stack?: string[];
   visual?: "gantt" | "grid" | "wave";

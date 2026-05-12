@@ -5,12 +5,15 @@ import Link from "next/link";
 import ProjectModal, { type ProjectData } from "./components/ProjectModal";
 import CredentialModal from "./components/CredentialModal";
 import { credentials, type CredentialData } from "./data/credentials";
+import CredentialCard from "./components/CredentialCard";
 import Section from "./components/Section";
 import SideNav from "./components/SideNav";
 import SkillConstellation from "./components/SkillConstellation";
 import ProjectVisual from "./components/ProjectVisual";
+import SectionHeader from "./components/SectionHeader";
 import { projects } from "./data/projects";
-
+import { experienceData } from "./data/experience";
+import ExperienceItem from "./components/ExperienceItem";
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
   const [selectedCredential, setSelectedCredential] = useState<CredentialData | null>(null);
@@ -34,8 +37,7 @@ export default function Home() {
 
 
         <div className="relative max-w-5xl mx-auto w-full py-20">
-          <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[1fr_auto] lg:gap-10 lg:items-center">
-            <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[60%_40%] lg:gap-4 lg:items-center">            <div className="flex flex-col gap-6">
               <div className="flex items-center gap-4">
                 <span className="w-8 h-px bg-orange" />
                 <p className="font-mono text-sm tracking-widest uppercase text-orange">
@@ -76,7 +78,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center justify-center w-full max-w-[320px]">
+            <div className="hidden lg:flex items-center justify-start w-full max-w-[320px]">
               <SkillConstellation />
             </div>
           </div>
@@ -90,72 +92,35 @@ export default function Home() {
       {/* Experience */}
       <Section stagger id="experience" className="relative overflow-hidden px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
         <div className="max-w-5xl mx-auto relative">
-          <div className="mb-12">
-            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">01</span>
-            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
-            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
-              Experience
-            </span>
-          </div>
-
-          <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
-            <div className="mb-6 lg:mb-0">
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-sm border border-orange/10 flex items-center justify-center shrink-0">
-                  <span className="font-heading text-base text-orange">TP</span>
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-heading text-lg text-text-primary leading-tight">
-                    Turnkey Philippines
-                  </span>
-                  <span className="text-sm text-text-secondary">
-                    Backend Developer Intern
-                  </span>
-                  <span className="font-mono text-xs tracking-widest uppercase text-text-muted mt-1">
-                    Dec 2025 — Mar 2026
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-5">
-              <p className="text-text-secondary leading-relaxed text-base sm:text-lg">
-              Built and deployed the backend infrastructure for a client mobile application with a team of interns. Developed RESTful APIs using Fastify, designed scalable database schemas, and hosted both the application and self-managed n8n workflows on DigitalOcean. Implemented CI/CD pipelines for streamlined deployments while gaining hands-on experience in cloud infrastructure, backend architecture, and development workflows.
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {["React Native", "Fastify", "n8n", "TypeScript"].map((tech) => (
-                  <span
-                    key={tech}
-                    className="font-mono text-xs px-3 py-1.5 rounded-full bg-surface-elevated text-text-secondary border border-border"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          <SectionHeader title="Experience/Education" number="01" />
+          {experienceData.map((exp) => (
+            <ExperienceItem
+              key={exp.company}
+              logo={exp.logo}
+              company={exp.company}
+              role={exp.role}
+              date={exp.date}
+              description={exp.description}
+              techStack={exp.techStack}
+            />
+          ))}
         </div>
       </Section>
 
+      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
+      </div>
 
       {/* Projects */}
       <Section stagger id="projects" className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-        <div aria-hidden="true" className="absolute bottom-0 left-0 w-[50%] h-80 bg-amber/4 blur-3xl rounded-full animate-blob-wide animate-delay-1 -translate-x-1/3 translate-y-1/3" />
+        <div aria-hidden="true" className="absolute bottom-0 right-0 w-[50%] h-80 bg-amber/4 blur-3xl rounded-full animate-blob-wide animate-delay-1 translate-x-1/3 translate-y-1/3"/>        
         <div className="max-w-5xl mx-auto relative">
-          <div className="mb-12">
-            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">02</span>
-            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
-            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
-              Projects
-            </span>
-          </div>
+          <SectionHeader title="Projects" number="02" />
+
 
           <div className="border-t-2 border-orange/30">
-            {projects.map((project, i) => {
+            {projects.slice(0, 3).map((project, i) => {
               const isEven = i % 2 === 0;
-              const labels = ["AI AUTOMATION", "FULL-STACK", "AI + SPEECH"];
-              const actions = ["View Project", "View Project", "View Project"];
               return (
                 <article
                   key={project.title}
@@ -171,7 +136,7 @@ export default function Home() {
                     <div className="flex justify-between items-start">
                       <div>
                         <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-orange-muted block mb-2">
-                          {String(i + 1).padStart(2, "0")} / {labels[i]}
+                          {String(i + 1).padStart(2, "0")} / {project.label} /{project.date}
                         </span>
                         <h3 className="font-heading text-xl sm:text-2xl text-text-primary leading-tight group-hover:text-orange transition-colors duration-300">
                           {project.title}
@@ -183,11 +148,11 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col md:flex-row justify-between items-end gap-6">
                       <p className="text-text-secondary text-sm leading-relaxed max-w-lg">
-                        {project.description.slice(0, 100)}&hellip;
+                        {project.shortDescription}
                       </p>
                       <span className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-orange group-hover:gap-3 transition-all duration-300 shrink-0">
                         <span className="w-6 h-px bg-orange/40 group-hover:w-10 group-hover:bg-orange transition-all duration-300" />
-                        {actions[i]}
+                        View details
                       </span>
                     </div>
                   </div>
@@ -216,44 +181,27 @@ export default function Home() {
       <Section stagger id="credentials" className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
         <div aria-hidden="true" className="absolute top-1/2 right-0 w-72 h-72 bg-orange-deep/6 blur-3xl rounded-full animate-blob-slow animate-delay-2 translate-x-1/2 -translate-y-1/2" />
         <div className="max-w-5xl mx-auto relative">
-          <div className="mb-12">
-            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">03</span>
-            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
-            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
-              Credentials
-            </span>
-          </div>
+          <SectionHeader title="Credentials" number="03" />
+
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {credentials.map((c) => (
-              <button
+              <CredentialCard
                 key={c.label}
-                onClick={() => setSelectedCredential(c)}
-                className="text-left p-5 sm:p-6 border border-border/30 bg-surface/30 flex flex-col justify-between hover:bg-surface transition-colors duration-500 cursor-pointer"
-              >
-                <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-orange-muted">
-                  {c.type === "cert" ? "Certification" : "Award"}
-                </span>
-                <div>
-                  <h4 className="font-heading text-lg sm:text-xl text-text-primary mb-1">{c.label}</h4>
-                  <p className="text-text-secondary text-sm leading-relaxed">{c.detail}</p>
-                </div>
-                <span className="font-mono text-[10px] tracking-widest uppercase border-t border-border/20 pt-4 text-text-muted">
-                  {c.skills.join(" · ")}
-                </span>
-              </button>
+                credential={c}
+                onSelect={setSelectedCredential}
+              />
             ))}
           </div>
 
-          <div className="mt-16 text-center">
-            <a
-              href="#"
+          <div className="mt-12 text-center">
+            <Link
+              href="/credentials"
               className="inline-flex items-center gap-3 group font-mono text-xs sm:text-sm tracking-widest uppercase text-orange hover:text-orange-bright transition-colors duration-200"
-              onClick={(e) => e.preventDefault()}
             >
               <span className="w-8 h-px bg-orange/40 group-hover:w-14 group-hover:bg-orange transition-all duration-300" />
-              See more
-            </a>
+              Show more
+            </Link>
           </div>
 
         </div>
@@ -267,13 +215,7 @@ export default function Home() {
       <Section stagger id="about" className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
         <div aria-hidden="true" className="absolute top-0 left-0 w-80 h-80 bg-orange-deep/8 blur-3xl rounded-full animate-blob-alt animate-delay-3 -translate-x-1/3 -translate-y-1/3" />
         <div className="max-w-5xl mx-auto relative">
-          <div className="mb-12">
-            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">04</span>
-            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
-            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
-              About
-            </span>
-          </div>
+          <SectionHeader title="About" number="04" />
           <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
             <div className="mb-8 lg:mb-0">
               <span className="font-heading text-xl text-text-primary">
@@ -307,16 +249,11 @@ export default function Home() {
       </div>
 
       {/* Contact */}
-      <Section stagger id="contact" className="relative overflow-hidden px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-        <div aria-hidden="true" className="absolute bottom-0 right-0 w-96 h-96 bg-amber/3 blur-3xl rounded-full animate-blob-wide animate-delay-1 translate-x-1/4 translate-y-1/3" />
+      <Section stagger id="contact" className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+        <div aria-hidden="true" className="absolute bottom-0 right-0 w-[50%] h-80 bg-amber/4 blur-3xl rounded-full animate-blob-wide animate-delay-1 translate-x-1/3 translate-y-1/3"/>        
         <div className="max-w-5xl mx-auto relative">
-          <div className="mb-12">
-            <span className="font-heading text-4xl sm:text-5xl text-orange/10 mr-5 tabular-nums">05</span>
-            <span className="w-10 h-0.5 bg-orange/60 inline-block align-middle mr-5" />
-            <span className="font-mono text-xs sm:text-sm tracking-[0.2em] uppercase text-orange align-middle">
-              Contact
-            </span>
-          </div>
+          <SectionHeader title="Contact" number="05" />
+
 
           <div className="lg:grid lg:grid-cols-[1fr_1fr] lg:gap-16">
             <div className="flex flex-col gap-4">

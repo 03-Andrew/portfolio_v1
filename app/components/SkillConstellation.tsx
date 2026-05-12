@@ -9,10 +9,10 @@ interface StackRow {
 
 const STACK: StackRow[] = [
   { category: "Backend", techs: "FastAPI · Django · Node.js" },
-  { category: "Frontend", techs: "Next.js" },
-  { category: "Infrastructure", techs: "Docker · DigitalOcean" },
-  { category: "Database", techs: "PostgreSQL" },
-  { category: "Automation", techs: "n8n" },
+  { category: "Frontend", techs: "Next.js · React" },
+  { category: "Infra", techs: "Docker · DigitalOcean" },
+  { category: "Data", techs: "PostgreSQL" },
+  { category: "Automation", techs: "n8n · OpenAI" },
 ];
 
 export default function SkillConstellation() {
@@ -38,37 +38,36 @@ export default function SkillConstellation() {
   return (
     <div
       ref={ref}
-      aria-hidden="true"
-      className="font-mono text-xs leading-relaxed select-none"
+      aria-label="Technology stack"
+      className="font-mono text-xs leading-relaxed text-text-muted"
       style={{
         width: 280,
         opacity: visible ? 1 : 0,
         transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1)",
       }}
     >
-      <div className="mb-3">
-        <span className="text-[10px] tracking-[0.25em] uppercase text-orange-muted">
-          Stack
+      <div className="border-y border-orange/20 py-3">
+        <span className="mb-3 block text-xs tracking-[0.2em] uppercase text-orange-muted">
+          Current Stack
         </span>
-        <div className="mt-1.5 h-px bg-gradient-to-r from-orange/30 to-transparent" />
-      </div>
 
-      <div className="flex flex-col gap-1.5">
-        {STACK.map((row, i) => (
-          <div
-            key={row.category}
-            className="flex gap-3"
-            style={{
-              opacity: visible ? 1 : 0,
-              transition: `opacity 0.4s cubic-bezier(0.16,1,0.3,1) ${i * 80}ms`,
-            }}
-          >
-            <span className="text-text-secondary shrink-0 w-[92px] tracking-tight">
-              {row.category}
-            </span>
-            <span className="text-text-muted/75">{row.techs}</span>
-          </div>
-        ))}
+        <dl className="grid gap-2">
+          {STACK.map((row, i) => (
+            <div
+              key={row.category}
+              className="grid grid-cols-[88px_1fr] gap-3"
+              style={{
+                opacity: visible ? 1 : 0,
+                transition: `opacity 0.4s cubic-bezier(0.16,1,0.3,1) ${i * 80}ms`,
+              }}
+            >
+              <dt className="text-orange-muted tracking-tight">
+                {row.category}
+              </dt>
+              <dd className="text-text-secondary">{row.techs}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </div>
   );
