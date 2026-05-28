@@ -51,10 +51,10 @@ export default function ProjectsPage() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 flex-1 min-w-0">
-                    <h3 className="font-heading text-lg text-text-primary shrink-0 group-hover:text-orange transition-colors duration-200">
+                    <h3 className="min-w-0 font-heading text-lg text-text-primary group-hover:text-orange transition-colors duration-200 break-words">
                       {p.title}
                     </h3>
-                    <span className="font-mono text-[11px] tracking-widest uppercase text-orange-muted bg-orange/8 px-2.5 py-1 rounded-full w-fit shrink-0">
+                    <span className="max-w-full self-start rounded-full bg-orange/8 px-2.5 py-1 font-mono text-[11px] uppercase leading-relaxed tracking-widest text-orange-muted break-words sm:w-fit sm:shrink-0">
                       {p.tech}
                     </span>
                   </div>

@@ -4,6 +4,10 @@ export interface CredentialData {
   type: "cert" | "award";
   date: string;
   skills: string[];
+  image?: {
+    src: string;
+    alt: string;
+  };
   verifyUrl?: string;
 }
 
@@ -14,7 +18,11 @@ export const credentials: CredentialData[] = [
     type: "cert",
     date: "Issued February 2026",
     skills: ["Networking", "Routing", "Switching", "Security", "TCP/IP", "VLAN", "WAN"],
-    verifyUrl: "https://www.credly.com/badges/",
+    image: {
+      src: "/ccna.png",
+      alt: "Cisco Certified Network Associate badge",
+    },
+    verifyUrl: "https://www.credly.com/badges/d4345091-0898-4bad-a36b-6095fe782e05/public_url",
   },
   {
     label: "2nd Place",
@@ -22,5 +30,10 @@ export const credentials: CredentialData[] = [
     date: "April 2024",
     type: "award",
     skills: ["Problem Solving", "Algorithms", "Competitive Programming"],
+    verifyUrl: "https://www.mcits.com/competitions/2024",
+    image: {
+      src: "/coding_cert.jpeg",
+      alt: "Certificate for 2nd place in MCITS 2024 Coding Competition",
+    }
   },
 ];

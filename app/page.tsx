@@ -78,8 +78,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center justify-start w-full max-w-[320px]">
-              <SkillConstellation />
+            <div className="flex w-full items-center justify-start lg:max-w-[320px]">
+              <SkillConstellation className="mt-2 lg:mt-0" />
             </div>
           </div>
         </div>
@@ -133,20 +133,20 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="w-full md:w-3/5 p-8 md:p-10 flex flex-col justify-between gap-6">
-                    <div className="flex justify-between items-start">
-                      <div>
+                    <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="min-w-0">
                         <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-orange-muted block mb-2">
                           {String(i + 1).padStart(2, "0")} / {project.label} /{project.date}
                         </span>
-                        <h3 className="font-heading text-xl sm:text-2xl text-text-primary leading-tight group-hover:text-orange transition-colors duration-300">
+                        <h3 className="font-heading text-xl sm:text-2xl text-text-primary leading-tight group-hover:text-orange transition-colors duration-300 break-words">
                           {project.title}
                         </h3>
                       </div>
-                      <span className="font-mono text-[10px] tracking-widest uppercase border border-border/30 px-3 py-1.5 rounded-full text-text-muted shrink-0 ml-4">
+                      <span className="max-w-full self-start break-words rounded-full border border-border/30 px-3 py-1.5 font-mono text-[10px] uppercase leading-relaxed tracking-widest text-text-muted sm:ml-4 sm:shrink-0">
                         {project.tech}
                       </span>
                     </div>
-                    <div className="flex flex-col md:flex-row justify-between items-end gap-6">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                       <p className="text-text-secondary text-sm leading-relaxed max-w-lg">
                         {project.shortDescription}
                       </p>

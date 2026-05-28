@@ -10,9 +10,21 @@ export interface ProjectData {
   description: string;
   shortDescription: string;
   role: string;
+  findings: string[];
+  links?: {
+    code?: string;
+    video?: string;
+    manuscript?: string;
+  };
   stack?: string[];
   visual?: "gantt" | "grid" | "wave";
 }
+
+const PROJECT_ACTIONS = [
+  { key: "code", label: "Code" },
+  { key: "video", label: "Video" },
+  { key: "manuscript", label: "Manuscript" },
+] as const;
 
 function Visual({ type }: { type: string }) {
   if (type === "gantt") {
@@ -124,6 +136,9 @@ export default function ProjectModal({
   const prefersReduced =
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const projectActions = PROJECT_ACTIONS.filter(
+    (action) => project.links?.[action.key]
+  );
 
   return (
     <div
@@ -147,7 +162,7 @@ export default function ProjectModal({
         aria-modal="true"
         aria-label={project.title}
         tabIndex={-1}
-        className="relative w-full max-w-2xl max-h-[90svh] overflow-y-auto rounded-sm bg-surface border border-border shadow-2xl outline-none"
+        className="relative w-full max-w-5xl max-h-[90svh] overflow-y-auto rounded-sm bg-surface border border-border shadow-2xl outline-none lg:grid lg:grid-cols-[minmax(300px,0.44fr)_minmax(0,0.56fr)]"
         style={{
           animation: prefersReduced
             ? "none"
@@ -165,59 +180,101 @@ export default function ProjectModal({
           </svg>
         </button>
 
-        {/* Visual header */}
-        <div className="flex items-center justify-center p-10 sm:p-14 bg-surface-elevated/50">
-          {project.visual ? (
-            <Visual type={project.visual} />
-          ) : (
-            <div className="w-24 h-24 rounded-3xl bg-orange/8 flex items-center justify-center">
-              <span className="font-heading text-4xl text-orange/30">~</span>
-            </div>
+        {/* Spec rail */}
+        <aside className="flex flex-col gap-6 bg-surface-elevated/50 p-6 sm:p-8 lg:border-r lg:border-border/70 lg:p-10">
+          <div className="flex aspect-[3/2] w-full max-w-[460px] items-center justify-center rounded-lg border border-orange/15 bg-canvas/70 p-8 shadow-lg shadow-orange/5">
+            {project.visual ? (
+              <Visual type={project.visual} />
+            ) : (
+              <div className="w-24 h-24 rounded-3xl bg-orange/8 flex items-center justify-center">
+                <span className="font-heading text-4xl text-orange/30">~</span>
+              </div>
+            )}
+          </div>
+
+          <section className="flex flex-col gap-2">
+            <h3 className="font-mono text-[11px] uppercase leading-relaxed tracking-widest text-orange-muted">
+              Role
+            </h3>
+            <p className="font-heading text-2xl leading-tight text-text-primary sm:text-3xl">
+              {project.role}
+            </p>
+          </section>
+
+          {project.stack && project.stack.length > 0 && (
+            <section className="flex flex-col gap-3">
+              <h3 className="font-mono text-[11px] uppercase leading-relaxed tracking-widest text-orange-muted">
+                Tech stack
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {project.stack.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-ful border border-border bg-surface px-3 py-1.5 font-mono text-xs text-text-secondary rounded-full"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </section>
           )}
-        </div>
+        </aside>
 
         {/* Content */}
-        <div className="p-6 sm:p-8 flex flex-col gap-5">
-          <div>
-            <span className="font-mono text-xs tracking-widest uppercase text-orange-muted bg-orange/8 px-3 py-1 rounded-full">
-              {project.tech}
-            </span>
-            <h2 className="font-heading text-2xl sm:text-3xl text-text-primary tracking-tight mt-4">
+        <div className="flex flex-col gap-6 p-6 sm:p-8 lg:p-10">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-wrap gap-2">
+              <span className="inline-block max-w-full rounded-full bg-orange/8 px-3 py-1 font-mono text-xs uppercase leading-relaxed tracking-widest text-orange-muted break-words">
+                {project.label}
+              </span>
+              <span className="inline-block max-w-full rounded-full border border-border px-3 py-1 font-mono text-xs uppercase leading-relaxed tracking-widest text-text-muted break-words">
+                {project.date}
+              </span>
+            </div>
+            <h2 className="font-heading text-2xl tracking-tight text-text-primary sm:text-3xl lg:text-4xl">
               {project.title}
             </h2>
           </div>
 
-          <p className="text-text-secondary leading-relaxed">
+          <p className="max-w-[68ch] text-text-secondary leading-relaxed">
             {project.description}
           </p>
 
-          <p className="text-sm text-text-muted leading-relaxed bg-surface-elevated rounded-lg p-4 border border-border">
-            {project.role}
-          </p>
-
-          {project.stack && project.stack.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((s) => (
-                <span
-                  key={s}
-                  className="font-mono text-xs px-3 py-1.5 rounded-md bg-surface-elevated text-text-secondary border border-border"
+          <section className="flex flex-col gap-3">
+            <h3 className="font-mono text-[11px] uppercase leading-relaxed tracking-widest text-orange-muted">
+              Key tasks / findings
+            </h3>
+            <ul className="grid gap-3">
+              {project.findings.map((finding) => (
+                <li
+                  key={finding}
+                  className="flex gap-3 text-sm leading-relaxed text-text-secondary"
                 >
-                  {s}
-                </span>
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange/70" />
+                  <span>{finding}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {projectActions.length > 0 && (
+            <div className="flex flex-wrap gap-3 pt-1">
+              {projectActions.map((action) => (
+                <a
+                  key={action.key}
+                  href={project.links?.[action.key]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-fit items-center gap-2 rounded-full border border-orange/20 px-4 py-2 font-mono text-xs uppercase tracking-widest text-orange transition-colors duration-200 hover:border-orange/45 hover:bg-orange/8 hover:text-orange-bright"
+                >
+                  {action.label}
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M1 11L11 1M11 1H4m7 0v7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
               ))}
             </div>
           )}
-
-          <a
-            href="#"
-            onClick={(e) => e.preventDefault()}
-            className="inline-flex items-center gap-2 mt-2 text-orange hover:text-orange-bright transition-colors duration-200 font-mono text-sm tracking-widest uppercase w-fit"
-          >
-            View project
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M1 11L11 1M11 1H4m7 0v7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
         </div>
       </div>
     </div>

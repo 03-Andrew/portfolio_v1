@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import type { CredentialData } from "../data/credentials";
+
+function normalizeImageSrc(src: string) {
+  if (src.startsWith("/") || src.startsWith("http://") || src.startsWith("https://")) {
+    return src;
+  }
+  return `/${src}`;
+}
 
 export default function CredentialModal({
   credential,
@@ -75,6 +83,9 @@ export default function CredentialModal({
   const prefersReduced =
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const imageSrc = credential.image
+    ? normalizeImageSrc(credential.image.src)
+    : null;
 
   return (
     <div
@@ -121,16 +132,29 @@ export default function CredentialModal({
           </svg>
         </button>
 
-        {/* Icon header */}
-        <div className="flex items-center justify-center p-10 sm:p-14 bg-surface-elevated/50">
-          <div
-            className={`w-20 h-20 rounded-full flex items-center justify-center border-2 ${
-              isCert
-                ? "border-orange/30 bg-orange/[0.06]"
-                : "border-orange-bright/30 bg-orange-bright/[0.06]"
-            }`}
-          >
-            {isCert ? (
+        {/* Badge header */}
+        <div className="relative flex h-[320px] items-center justify-center overflow-hidden bg-surface-elevated/50">
+          {credential.image && imageSrc ? (
+            <>
+              <Image
+                src={imageSrc}
+                alt={credential.image.alt}
+                width={900}
+                height={600}
+                className="h-full w-full object-cover"
+                priority
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-surface/18 to-surface/85" />
+            </>
+          ) : (
+            <div
+              className={`w-20 h-20 rounded-full flex items-center justify-center border-2 ${
+                isCert
+                  ? "border-orange/30 bg-orange/[0.06]"
+                  : "border-orange-bright/30 bg-orange-bright/[0.06]"
+              }`}
+            >
+              {isCert ? (
               <svg
                 width="32"
                 height="32"
@@ -152,7 +176,7 @@ export default function CredentialModal({
                   strokeLinejoin="round"
                 />
               </svg>
-            ) : (
+              ) : (
               <svg
                 width="32"
                 height="32"
@@ -164,8 +188,9 @@ export default function CredentialModal({
                 <path d="M10 6v5M10 13.5v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 <path d="M7 9l3-3 3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -197,7 +222,7 @@ export default function CredentialModal({
                 {credential.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="font-mono text-xs px-3 py-1.5 rounded-md bg-surface-elevated text-text-secondary border border-border"
+                    className="font-mono text-xs px-3 py-1.5 rounded-full bg-surface-elevated text-text-secondary border border-border"
                   >
                     {skill}
                   </span>

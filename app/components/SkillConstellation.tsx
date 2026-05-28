@@ -15,7 +15,7 @@ const STACK: StackRow[] = [
   { category: "Automation", techs: "n8n · OpenAI" },
 ];
 
-export default function SkillConstellation() {
+export default function SkillConstellation({ className = "" }: { className?: string }) {
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -39,9 +39,8 @@ export default function SkillConstellation() {
     <div
       ref={ref}
       aria-label="Technology stack"
-      className="font-mono text-xs leading-relaxed text-text-muted"
+      className={`w-full max-w-[340px] font-mono text-xs leading-relaxed text-text-muted lg:max-w-[280px] ${className}`}
       style={{
-        width: 280,
         opacity: visible ? 1 : 0,
         transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1)",
       }}
@@ -55,7 +54,7 @@ export default function SkillConstellation() {
           {STACK.map((row, i) => (
             <div
               key={row.category}
-              className="grid grid-cols-[88px_1fr] gap-3"
+              className="grid grid-cols-[82px_minmax(0,1fr)] gap-3 sm:grid-cols-[88px_minmax(0,1fr)]"
               style={{
                 opacity: visible ? 1 : 0,
                 transition: `opacity 0.4s cubic-bezier(0.16,1,0.3,1) ${i * 80}ms`,
@@ -64,7 +63,7 @@ export default function SkillConstellation() {
               <dt className="text-orange-muted tracking-tight">
                 {row.category}
               </dt>
-              <dd className="text-text-secondary">{row.techs}</dd>
+              <dd className="min-w-0 text-text-secondary">{row.techs}</dd>
             </div>
           ))}
         </dl>
