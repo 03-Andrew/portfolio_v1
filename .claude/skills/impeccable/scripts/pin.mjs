@@ -21,13 +21,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // All known harness directories
 const HARNESS_DIRS = [
-  '.claude', '.cursor', '.gemini', '.codex', '.agents',
+  '.claude', '.cursor', '.gemini', '.codex', '.agents', '.antigravitycli',
   '.trae', '.trae-cn', '.pi', '.opencode', '.kiro', '.rovodev',
 ];
 
 // Valid sub-command names
 const VALID_COMMANDS = [
-  'craft', 'teach', 'extract', 'document', 'shape',
+  'craft', 'init', 'extract', 'document', 'shape',
   'critique', 'audit',
   'polish', 'bolder', 'quieter', 'distill', 'harden', 'onboard', 'live',
   'animate', 'colorize', 'typeset', 'layout', 'delight', 'overdrive',

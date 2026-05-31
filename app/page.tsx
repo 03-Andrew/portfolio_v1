@@ -14,9 +14,24 @@ import SectionHeader from "./components/SectionHeader";
 import { projects } from "./data/projects";
 import { experienceData } from "./data/experience";
 import ExperienceItem from "./components/ExperienceItem";
+import { useModalUrlSync, slugify } from "./hooks/useModalUrlSync";
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
   const [selectedCredential, setSelectedCredential] = useState<CredentialData | null>(null);
+
+  const selectProject = useModalUrlSync({
+    paramName: "project",
+    items: projects,
+    getSlug: (p) => slugify(p.title),
+    setSelectedItem: setSelectedProject,
+  });
+
+  const selectCredential = useModalUrlSync({
+    paramName: "credential",
+    items: credentials,
+    getSlug: (c) => slugify(c.label),
+    setSelectedItem: setSelectedCredential,
+  });
 
   return (
     <>
@@ -124,7 +139,7 @@ export default function Home() {
               return (
                 <article
                   key={project.title}
-                  onClick={() => setSelectedProject(project)}
+                  onClick={() => selectProject(project)}
                   className={`group cursor-pointer flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} border-b border-border/30 hover:bg-surface/40 transition-all duration-500`}
                 >
                   <div className={`w-full md:w-2/5 aspect-[4/3] overflow-hidden bg-surface-elevated/20 flex items-center justify-center ${isEven ? "md:border-r" : "md:border-l"} border-border/10 group-hover:bg-surface-elevated/40 transition-colors duration-500`}>
@@ -133,18 +148,27 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="w-full md:w-3/5 p-8 md:p-10 flex flex-col justify-between gap-6">
-                    <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex min-w-0 flex-col gap-3">
                       <div className="min-w-0">
                         <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-orange-muted block mb-2">
-                          {String(i + 1).padStart(2, "0")} / {project.label} /{project.date}
+                          {String(i + 1).padStart(2, "0")} / {project.label} / {project.date}
                         </span>
                         <h3 className="font-heading text-xl sm:text-2xl text-text-primary leading-tight group-hover:text-orange transition-colors duration-300 break-words">
                           {project.title}
                         </h3>
                       </div>
-                      <span className="max-w-full self-start break-words rounded-full border border-border/30 px-3 py-1.5 font-mono text-[10px] uppercase leading-relaxed tracking-widest text-text-muted sm:ml-4 sm:shrink-0">
-                        {project.tech}
-                      </span>
+                      {project.stack && project.stack.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 max-w-full">
+                          {project.stack.map((s) => (
+                            <span
+                              key={s}
+                              className="rounded-full border border-border/30 bg-surface px-2.5 py-0.5 font-mono text-[10px] uppercase leading-relaxed tracking-widest text-text-muted"
+                            >
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                       <p className="text-text-secondary text-sm leading-relaxed max-w-lg">
@@ -189,7 +213,7 @@ export default function Home() {
               <CredentialCard
                 key={c.label}
                 credential={c}
-                onSelect={setSelectedCredential}
+                onSelect={selectCredential}
               />
             ))}
           </div>
@@ -325,13 +349,13 @@ export default function Home() {
         project={selectedProject}
         triggerRect={null}
         isOpen={selectedProject !== null}
-        onClose={() => setSelectedProject(null)}
+        onClose={() => selectProject(null)}
       />
 
       <CredentialModal
         credential={selectedCredential}
         isOpen={selectedCredential !== null}
-        onClose={() => setSelectedCredential(null)}
+        onClose={() => selectCredential(null)}
       />
     </>
   );

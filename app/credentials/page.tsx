@@ -5,10 +5,18 @@ import Link from "next/link";
 import CredentialCard from "../components/CredentialCard";
 import CredentialModal from "../components/CredentialModal";
 import { credentials, type CredentialData } from "../data/credentials";
+import { useModalUrlSync, slugify } from "../hooks/useModalUrlSync";
 
 export default function CredentialsPage() {
   const [selectedCredential, setSelectedCredential] =
     useState<CredentialData | null>(null);
+
+  const selectCredential = useModalUrlSync({
+    paramName: "credential",
+    items: credentials,
+    getSlug: (c) => slugify(c.label),
+    setSelectedItem: setSelectedCredential,
+  });
 
   return (
     <div className="min-h-svh flex flex-col">
@@ -56,7 +64,7 @@ export default function CredentialsPage() {
                 <CredentialCard
                   key={credential.label}
                   credential={credential}
-                  onSelect={setSelectedCredential}
+                  onSelect={selectCredential}
                 />
               ))}
             </div>
@@ -79,7 +87,7 @@ export default function CredentialsPage() {
       <CredentialModal
         credential={selectedCredential}
         isOpen={selectedCredential !== null}
-        onClose={() => setSelectedCredential(null)}
+        onClose={() => selectCredential(null)}
       />
     </div>
   );

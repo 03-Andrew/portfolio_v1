@@ -4,10 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import ProjectModal, { type ProjectData } from "../components/ProjectModal";
 import { projects as allProjects } from "../data/projects";
+import { useModalUrlSync, slugify } from "../hooks/useModalUrlSync";
 
 
 export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
+
+  const selectProject = useModalUrlSync({
+    paramName: "project",
+    items: allProjects,
+    getSlug: (p) => slugify(p.title),
+    setSelectedItem: setSelectedProject,
+  });
 
   return (
     <div className="min-h-svh flex flex-col">
@@ -44,19 +52,28 @@ export default function ProjectsPage() {
               {allProjects.map((p, i) => (
                 <button
                   key={p.title}
-                  onClick={() => setSelectedProject(p)}
+                  onClick={() => selectProject(p)}
                   className="w-full text-left py-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8 hover:bg-surface/50 transition-colors duration-200 px-3 -mx-3 group border-b border-border cursor-pointer"
                 >
                   <span className="font-mono text-xs text-text-muted w-8 shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 flex-1 min-w-0">
+                  <div className="flex flex-col gap-2.5 flex-1 min-w-0">
                     <h3 className="min-w-0 font-heading text-lg text-text-primary group-hover:text-orange transition-colors duration-200 break-words">
                       {p.title}
                     </h3>
-                    <span className="max-w-full self-start rounded-full bg-orange/8 px-2.5 py-1 font-mono text-[11px] uppercase leading-relaxed tracking-widest text-orange-muted break-words sm:w-fit sm:shrink-0">
-                      {p.tech}
-                    </span>
+                    {p.stack && p.stack.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 max-w-full">
+                        {p.stack.map((s) => (
+                          <span
+                            key={s}
+                            className="rounded-full bg-orange/8 px-2.5 py-0.5 font-mono text-[10px] uppercase leading-relaxed tracking-widest text-orange-muted"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <p className="text-sm text-text-muted hidden sm:block flex-1 min-w-0">
                     {p.description.slice(0, 70)}&hellip;
@@ -84,7 +101,7 @@ export default function ProjectsPage() {
         project={selectedProject}
         triggerRect={null}
         isOpen={selectedProject !== null}
-        onClose={() => setSelectedProject(null)}
+        onClose={() => selectProject(null)}
       />
     </div>
   );
