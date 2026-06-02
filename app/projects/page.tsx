@@ -1,34 +1,25 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import ProjectModal, { type ProjectData } from "../components/ProjectModal";
 import { projects as allProjects } from "../data/projects";
-import { useModalUrlSync, slugify } from "../hooks/useModalUrlSync";
+import { slugify } from "../hooks/useModalUrlSync";
 
 
 export default function ProjectsPage() {
-  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
-
-  const selectProject = useModalUrlSync({
-    paramName: "project",
-    items: allProjects,
-    getSlug: (p) => slugify(p.title),
-    setSelectedItem: setSelectedProject,
-  });
-
   return (
     <div className="min-h-svh flex flex-col">
-      <nav className="sticky top-0 z-50 bg-canvas px-6 py-6 sm:px-10 lg:px-16">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-3 text-text-secondary hover:text-orange transition-colors duration-200 group font-mono text-sm tracking-widest uppercase"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover:-translate-x-1 transition-transform duration-200">
-            <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-          Back
-        </Link>
+      <nav className="top-0 z-50 bg-canvas px-6 sm:px-10 lg:px-16 ">
+        <div className="max-w-5xl mx-auto w-full py-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-3 text-text-secondary hover:text-orange transition-colors duration-200 group font-mono text-sm tracking-widest uppercase"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover:-translate-x-1 transition-transform duration-200">
+              <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            Back
+          </Link>
+        </div>
       </nav>
 
       <main className="flex-1 flex flex-col justify-center">
@@ -50,9 +41,9 @@ export default function ProjectsPage() {
           <div className="max-w-5xl mx-auto">
             <div className="flex flex-col gap-1">
               {allProjects.map((p, i) => (
-                <button
+                <Link
                   key={p.title}
-                  onClick={() => selectProject(p)}
+                  href={`/projects/${slugify(p.title)}`}
                   className="w-full text-left py-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8 hover:bg-surface/50 transition-colors duration-200 px-3 -mx-3 group border-b border-border cursor-pointer"
                 >
                   <span className="font-mono text-xs text-text-muted w-8 shrink-0">
@@ -81,7 +72,7 @@ export default function ProjectsPage() {
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 opacity-40 group-hover:opacity-100 group-hover:text-orange transition-all duration-200">
                     <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </button>
+                </Link>
               ))}
             </div>
           </div>
@@ -96,13 +87,6 @@ export default function ProjectsPage() {
           <p>&copy; {new Date().getFullYear()}</p>
         </div>
       </footer>
-
-      <ProjectModal
-        project={selectedProject}
-        triggerRect={null}
-        isOpen={selectedProject !== null}
-        onClose={() => selectProject(null)}
-      />
     </div>
   );
 }

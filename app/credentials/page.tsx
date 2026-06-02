@@ -20,27 +20,29 @@ export default function CredentialsPage() {
 
   return (
     <div className="min-h-svh flex flex-col">
-      <nav className="sticky top-0 z-50 bg-canvas px-6 py-6 sm:px-10 lg:px-16">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-3 text-text-secondary hover:text-orange transition-colors duration-200 group font-mono text-sm tracking-widest uppercase"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="group-hover:-translate-x-1 transition-transform duration-200"
+      <nav className="sticky top-0 z-50 bg-canvas px-6 sm:px-10 lg:px-16">
+        <div className="max-w-5xl mx-auto w-full py-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-3 text-text-secondary hover:text-orange transition-colors duration-200 group font-mono text-sm tracking-widest uppercase"
           >
-            <path
-              d="M10 4L6 8l4 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-          Back
-        </Link>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              className="group-hover:-translate-x-1 transition-transform duration-200"
+            >
+              <path
+                d="M10 4L6 8l4 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+            Back
+          </Link>
+        </div>
       </nav>
 
       <main className="flex-1 flex flex-col justify-center">

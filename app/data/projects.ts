@@ -1,34 +1,34 @@
 import type { ProjectData } from "../components/ProjectModal";
 
 export const projects: ProjectData[] = [
-  {
-    title: "Strava AI Coach Discord Bot",
-    tech: "Lambda · SQS · DynamoDB · Gemini",
-    label: "Serverless AI",
-    date: "May 2026",
-    description:
-      "A serverless, AI-driven fitness coach integrated directly into Discord. The bot ingests real-time activity and club webhook events from the Strava API, allowing athletes to trigger performance diagnostics, leaderboards, and custom workouts via Discord Slash Commands. Utilizing Gemini Pro, the bot generates personalized coaching advice, kudos, and performance cards.",
-    shortDescription: "AI-powered fitness coach bot for Discord synced with Strava.",
-    role: "Serverless systems engineer",
-    findings: [
-      "Architected an event-driven serverless pipeline using AWS API Gateway and SQS to ingest Strava activity webhooks and Discord Slash Commands.",
-      "Completely neutralized Lambda cold start latency by offloading webhook and command execution to SQS queues, guaranteeing rapid and reliable API Gateway handshakes.",
-      "Engineered a distributed token and session-state storage layer using DynamoDB, securing athlete credentials with strict IAM boundary roles.",
-      "Connected the Gemini API to process athletes' fitness trends and club activity, rendering rich, contextual coaching cards directly in chat."
-    ],
-    stack: ["AWS Lambda", "AWS SQS", "DynamoDB", "API Gateway", "Strava API", "Discord API", "Gemini API", "AWS IAM"],
-    visual: "grid",
-    images: [],
-    architectureUrl: "",
-    architectureDescription: "An event-driven serverless webhook and slash command processor. Users trigger Discord Slash Commands or Strava publishes activity webhooks, which are swallowed by AWS API Gateway and immediately offloaded into an SQS queue. SQS decouples the network transaction, protecting the backend from Lambda cold start timeouts. An AWS Lambda worker processes the payload, loads authentication tokens from DynamoDB, queries Gemini Pro, and delivers rich coaching cards to Discord."
-  },
+  // {
+  //   title: "Strava AI Coach Discord Bot",
+  //   tech: "Lambda · SQS · DynamoDB · Gemini",
+  //   label: "Serverless AI",
+  //   date: "May 2026",
+  //   description:
+  //     "A serverless, AI-driven fitness coach integrated directly into Discord. The bot ingests real-time activity and club webhook events from the Strava API, allowing athletes to trigger performance diagnostics, leaderboards, and custom workouts via Discord Slash Commands. Utilizing Gemini Pro, the bot generates personalized coaching advice, kudos, and performance cards.",
+  //   shortDescription: "AI-powered fitness coach bot for Discord synced with Strava.",
+  //   role: "Serverless systems engineer",
+  //   findings: [
+  //     "Architected an event-driven serverless pipeline using AWS API Gateway and SQS to ingest Strava activity webhooks and Discord Slash Commands.",
+  //     "Completely neutralized Lambda cold start latency by offloading webhook and command execution to SQS queues, guaranteeing rapid and reliable API Gateway handshakes.",
+  //     "Engineered a distributed token and session-state storage layer using DynamoDB, securing athlete credentials with strict IAM boundary roles.",
+  //     "Connected the Gemini API to process athletes' fitness trends and club activity, rendering rich, contextual coaching cards directly in chat."
+  //   ],
+  //   stack: ["AWS Lambda", "AWS SQS", "DynamoDB", "API Gateway", "Strava API", "Discord API", "Gemini API", "AWS IAM"],
+  //   visual: "grid",
+  //   images: [],
+  //   architectureUrl: "",
+  //   architectureDescription: "An event-driven serverless webhook and slash command processor. Users trigger Discord Slash Commands or Strava publishes activity webhooks, which are swallowed by AWS API Gateway and immediately offloaded into an SQS queue. SQS decouples the network transaction, protecting the backend from Lambda cold start timeouts. An AWS Lambda worker processes the payload, loads authentication tokens from DynamoDB, queries Gemini Pro, and delivers rich coaching cards to Discord."
+  // },
   {
     title: "Faculty Meeting AI Scheduler",
     tech: "Next.js · n8n",
     label: "AI Automation",
     date: "October 2025",
     description:
-      "An intelligent booking system for a school's faculty. Teachers submit availability through a Next.js frontend; a scheduling algorithm resolves conflicts and triggers n8n webhooks to book rooms and send calendar invites. Replaced a manual process that consumed several hours per week across the faculty.",
+      "An intelligent booking system for a school's faculty. Teachers submit availability through a Next.js frontend; a scheduling algorithm resolves conflicts and triggers n8n webhooks to book sessions with faculty. Replaced a manual pen and paper process where students will have to list.",
     shortDescription: "AI scheduler for faculty meetings.",
     role: "Full-stack dev",
     findings: [
@@ -37,12 +37,29 @@ export const projects: ProjectData[] = [
       "Reduced recurring manual coordination overhead across faculty meetings, eliminating hours of weekly administrative overhead.",
       "Ensured robust calendar synchronization across simultaneous multi-room bookings."
     ],
-    stack: ["Next.js", "n8n", "Google Calendar API", "PostgreSQL", "Prisma"],
+    stack: ["Next.js", "n8n", "PostgreSQL", "Prisma"],
     visual: "gantt",
     links: { code: "code", video: "video" },
-    images: [],
-    architectureUrl: "",
-    architectureDescription: "An event-driven orchestration architecture that decouples frontend scheduling requests from third-party calendar synchronizations. Submissions trigger quick conflict-validation routines, while asynchronous n8n worker nodes handle the Google Calendar API writes in the background."
+    images: [
+      "/MCMeet/mockup.webp",
+      "/MCMeet/agenda.webp",
+      "/MCMeet/cal_day.webp",
+      "/MCMeet/cal_month.webp"
+    ],
+    otherImages: [
+      {
+        title: "System Architecture",
+        label: "Infrastructure",
+        url: "/MCMeet/Archi.webp",
+        description: "An event-driven orchestration architecture that decouples frontend scheduling requests from third-party calendar synchronizations. Submissions trigger quick conflict-validation routines, while asynchronous n8n worker nodes handle the Google Calendar API writes in the background."
+      },
+      {
+        title: "n8n Integration Flow",
+        label: "Workflow Automation",
+        url: "/MCMeet/n8n_diagram.webp",
+        description: "An automated multi-node scheduling workflow built in n8n. Webhook triggers ingest availability data, route the payload through conditional check loops to resolve scheduling conflicts, write bookings to PostgreSQL, and dynamically push calendar invites and notification responses."
+      }
+    ]
   },
   {
     title: "Filipino Speech Coach",
@@ -62,8 +79,14 @@ export const projects: ProjectData[] = [
     stack: ["React", "FastAPI", "Azure VM", "WhisperX", "Supabase", "Cloudflare R2", "REST API"],
     visual: "wave",
     images: [],
-    architectureUrl: "",
-    architectureDescription: "A high-performance cloud-native machine learning pipeline. Audio payloads are sent from the React frontend via REST API endpoints to a FastAPI server hosted on an Azure VM, which executes phoneme-level WhisperX inference. User scores and metadata are stored in Supabase, while raw audio files are persisted securely in Cloudflare R2 bucket storage."
+    otherImages: [
+      {
+        title: "System Architecture",
+        label: "Infrastructure",
+        url: "",
+        description: "A high-performance cloud-native machine learning pipeline. Audio payloads are sent from the React frontend via REST API endpoints to a FastAPI server hosted on an Azure VM, which executes phoneme-level WhisperX inference. User scores and metadata are stored in Supabase, while raw audio files are persisted securely in Cloudflare R2 bucket storage."
+      }
+    ]
   },
   {
     title: "Resort Management Platform",
@@ -83,8 +106,14 @@ export const projects: ProjectData[] = [
     stack: ["Django", "DRF", "React", "PostgreSQL", "Redis", "Docker"],
     visual: "grid",
     images: [],
-    architectureUrl: "",
-    architectureDescription: "A robust monolithic backend architecture built for database transaction safety. Utilizes strict PostgreSQL isolation levels to guarantee race-condition prevention across concurrent room booking attempts, coupled with a write-through Redis cache."
+    otherImages: [
+      {
+        title: "System Architecture",
+        label: "Infrastructure",
+        url: "",
+        description: "A robust monolithic backend architecture built for database transaction safety. Utilizes strict PostgreSQL isolation levels to guarantee race-condition prevention across concurrent room booking attempts, coupled with a write-through Redis cache."
+      }
+    ]
   },
   {
     title: "CluckTrack: IoT Coop Surveillance",
@@ -107,7 +136,13 @@ export const projects: ProjectData[] = [
       manuscript: "https://ieeexplore.ieee.org"
     },
     images: [],
-    architectureUrl: "",
-    architectureDescription: "An IoT-to-Cloud edge AI pipeline. An ESP32-CAM captures and streams coop video frames over Wi-Fi to Firebase Cloud Storage. A server-side YOLOv8s model ingests the stream, performing real-time object detection and tracking. If coop activity counts drop or chickens show prolonged inactivity, a webhook triggers a hardware loop on an Arduino Uno with a SIM800C GSM shield, broadcasting cellular SMS alerts to the farmer while syncing stats to a Flutter mobile app."
+    otherImages: [
+      {
+        title: "System Architecture",
+        label: "Infrastructure",
+        url: "",
+        description: "An IoT-to-Cloud edge AI pipeline. An ESP32-CAM captures and streams coop video frames over Wi-Fi to Firebase Cloud Storage. A server-side YOLOv8s model ingests the stream, performing real-time object detection and tracking. If coop activity counts drop or chickens show prolonged inactivity, a webhook triggers a hardware loop on an Arduino Uno with a SIM800C GSM shield, broadcasting cellular SMS alerts to the farmer while syncing stats to a Flutter mobile app."
+      }
+    ]
   }
 ];

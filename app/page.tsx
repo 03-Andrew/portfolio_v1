@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import ProjectModal, { type ProjectData } from "./components/ProjectModal";
 import CredentialModal from "./components/CredentialModal";
 import { credentials, type CredentialData } from "./data/credentials";
 import CredentialCard from "./components/CredentialCard";
@@ -16,15 +15,7 @@ import { experienceData } from "./data/experience";
 import ExperienceItem from "./components/ExperienceItem";
 import { useModalUrlSync, slugify } from "./hooks/useModalUrlSync";
 export default function Home() {
-  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
   const [selectedCredential, setSelectedCredential] = useState<CredentialData | null>(null);
-
-  const selectProject = useModalUrlSync({
-    paramName: "project",
-    items: projects,
-    getSlug: (p) => slugify(p.title),
-    setSelectedItem: setSelectedProject,
-  });
 
   const selectCredential = useModalUrlSync({
     paramName: "credential",
@@ -111,9 +102,9 @@ export default function Home() {
           {experienceData.map((exp) => (
             <ExperienceItem
               key={exp.company}
-              logo={exp.logo}
-              company={exp.company}
               role={exp.role}
+              company={exp.company}
+              logo={exp.logo}
               date={exp.date}
               description={exp.description}
               techStack={exp.techStack}
@@ -136,16 +127,25 @@ export default function Home() {
           <div className="border-t-2 border-orange/30">
             {projects.slice(0, 3).map((project, i) => {
               const isEven = i % 2 === 0;
+              const projectSlug = slugify(project.title);
               return (
-                <article
+                <Link
                   key={project.title}
-                  onClick={() => selectProject(project)}
+                  href={`/projects/${projectSlug}`}
                   className={`group cursor-pointer flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} border-b border-border/30 hover:bg-surface/40 transition-all duration-500`}
                 >
-                  <div className={`w-full md:w-2/5 aspect-[4/3] overflow-hidden bg-surface-elevated/20 flex items-center justify-center ${isEven ? "md:border-r" : "md:border-l"} border-border/10 group-hover:bg-surface-elevated/40 transition-colors duration-500`}>
-                    <div className="scale-90 group-hover:scale-100 transition-transform duration-700">
-                      <ProjectVisual type={project.visual!} />
-                    </div>
+                  <div className={`w-full md:w-2/5 aspect-[4/3] overflow-hidden bg-surface-elevated/20 flex items-center justify-center ${isEven ? "md:border-r" : "md:border-l"} border-border/10 group-hover:bg-surface-elevated/40 transition-colors duration-500 relative`}>
+                    {project.images && project.images.length > 0 ? (
+                      <img
+                        src={project.images[0]}
+                        alt={`${project.title} Mockup Preview`}
+                        className="w-full h-full object-cover brightness-[0.75] contrast-[0.95] group-hover:brightness-100 group-hover:contrast-100 transition-all duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="scale-90 group-hover:scale-100 transition-transform duration-700">
+                        <ProjectVisual type={project.visual!} />
+                      </div>
+                    )}
                   </div>
                   <div className="w-full md:w-3/5 p-8 md:p-10 flex flex-col justify-between gap-6">
                     <div className="flex min-w-0 flex-col gap-3">
@@ -180,7 +180,7 @@ export default function Home() {
                       </span>
                     </div>
                   </div>
-                </article>
+                </Link>
               );
             })}
           </div>
@@ -240,6 +240,8 @@ export default function Home() {
         <div aria-hidden="true" className="absolute top-0 left-0 w-80 h-80 bg-orange-deep/8 blur-3xl rounded-full animate-blob-alt animate-delay-3 -translate-x-1/3 -translate-y-1/3" />
         <div className="max-w-5xl mx-auto relative">
           <SectionHeader title="About" number="04" />
+
+
           <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
             <div className="mb-8 lg:mb-0">
               <span className="font-heading text-xl text-text-primary">
@@ -344,13 +346,6 @@ export default function Home() {
           <p>&copy; {new Date().getFullYear()}</p>
         </div>
       </footer>
-
-      <ProjectModal
-        project={selectedProject}
-        triggerRect={null}
-        isOpen={selectedProject !== null}
-        onClose={() => selectProject(null)}
-      />
 
       <CredentialModal
         credential={selectedCredential}
