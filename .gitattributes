@@ -1,0 +1,5 @@
+# Exclude AI agent files and internal tooling scripts from GitHub's language statistics
+.claude/** linguist-detectable=false
+.agents/** linguist-detectable=false
+.impeccable/** linguist-detectable=false
+.antigravitycli/** linguist-detectable=false
