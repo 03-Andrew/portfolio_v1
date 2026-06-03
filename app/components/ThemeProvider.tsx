@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
 
 type Theme = "light" | "dark";
 
@@ -29,6 +30,18 @@ export default function ThemeProvider({
 }) {
   const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const current = sessionStorage.getItem("currentPath");
+      if (current && current !== pathname) {
+        sessionStorage.setItem("previousPath", current);
+        (window as any).__navigatedWithinApp = true;
+      }
+      sessionStorage.setItem("currentPath", pathname);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const stored = getStored();

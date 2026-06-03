@@ -4,6 +4,7 @@ import { projects } from "@/app/data/projects";
 import { slugify } from "@/app/hooks/slugify";
 import ProjectVisual from "@/app/components/ProjectVisual";
 import BackButton from "@/app/components/BackButton";
+import ProjectImageSlider from "@/app/components/ProjectImageSlider";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -112,7 +113,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             )}
 
             {/* Links Block */}
-            {project.links && Object.values(project.links).some(Boolean) && (
+            {project.links && Object.entries(project.links).some(([key, val]) => val && key !== "video") && (
               <div className="flex flex-col gap-3">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-orange-muted">
                   Links
@@ -137,28 +138,6 @@ export default async function ProjectDetailPage({ params }: Props) {
                         strokeLinejoin="round"
                       >
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-                      </svg>
-                    </a>
-                  )}
-                  {project.links.video && (
-                    <a
-                      href={project.links.video}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border hover:border-orange/30 hover:text-orange text-text-secondary text-[11px] font-mono uppercase tracking-wider transition-colors duration-200"
-                    >
-                      <span>Demo Video</span>
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
                     </a>
                   )}
@@ -194,30 +173,14 @@ export default async function ProjectDetailPage({ params }: Props) {
             
             {/* Screenshot Slideshow Carousel / Mini visual */}
             <div>
-              {project.images && project.images.length > 0 ? (
-                <div className="space-y-3">
-                  <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-1">
-                    {project.images.map((imgUrl, idx) => (
-                      <div
-                        key={idx}
-                        className="shrink-0 w-full aspect-[16/10] snap-center rounded-lg border border-border overflow-hidden bg-surface relative"
-                      >
-                        <img
-                          src={imgUrl}
-                          alt={`${project.title} Screenshot ${idx + 1}`}
-                          className="w-full h-full object-cover"
-                          loading={idx === 0 ? "eager" : "lazy"}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                  {project.images.length > 1 && (
-                    <div className="flex items-center justify-between text-[10px] text-text-muted font-mono px-1 uppercase tracking-wider">
-                      <span>← Swipe horizontally for screenshots →</span>
-                      <span>{project.images.length} items</span>
-                    </div>
-                  )}
-                </div>
+              {(project.images && project.images.length > 0) || 
+              (project.links?.video && project.videoEmbedLocation !== "dedicated") ? (
+                <ProjectImageSlider 
+                  images={project.images || []} 
+                  video={project.videoEmbedLocation !== "dedicated" ? project.links?.video : undefined} 
+                  title={project.title} 
+                  aspectRatio={project.aspectRatio}
+                />
               ) : (
                 project.visual && (
                   <div className="flex aspect-[16/10] w-full items-center justify-center rounded-lg border border-border bg-surface/50 p-8 shadow-sm">
@@ -239,10 +202,40 @@ export default async function ProjectDetailPage({ params }: Props) {
               </p>
             </div>
 
+            {/* Dedicated Deep-Dive Video Walkthrough Section */}
+            {project.videoEmbedLocation === "dedicated" && project.links?.video && (
+              <div className="flex flex-col gap-4 pt-8 border-t border-border/40">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-orange-muted">
+                  Video Walkthrough (Deep Dive)
+                </span>
+                {isYouTubeUrl(project.links.video) ? (
+                  <div className="relative w-full aspect-[16/10] overflow-hidden rounded-lg border border-border/20 shadow-sm bg-surface">
+                    <iframe
+                      src={getYouTubeEmbedUrl(project.links.video)}
+                      title={`${project.title} Deep-Dive Walkthrough`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full border-0"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative w-full overflow-hidden rounded-lg border border-border/20 shadow-sm bg-surface p-2">
+                    <video
+                      src={project.links.video}
+                      controls
+                      preload="metadata"
+                      playsInline
+                      className="w-full h-auto max-h-[500px] object-contain block rounded"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Findings List Section */}
             <div className="flex flex-col gap-4 pt-8 border-t border-border/40">
               <span className="font-mono text-[10px] uppercase tracking-widest text-orange-muted">
-                Key Tasks & Findings
+              Key Contributions & Findings
               </span>
               <ul className="flex flex-col gap-4">
                 {project.findings.map((finding, idx) => (
@@ -301,3 +294,16 @@ export default async function ProjectDetailPage({ params }: Props) {
     </div>
   );
 }
+
+// Helpers for responsive YouTube embeds in dedicated walkthroughs
+const isYouTubeUrl = (url: string): boolean => {
+  return url.includes("youtube.com") || url.includes("youtu.be");
+};
+
+const getYouTubeEmbedUrl = (url: string): string => {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11)
+    ? `https://www.youtube.com/embed/${match[2]}`
+    : url;
+};

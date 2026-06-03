@@ -75,11 +75,12 @@ export default function Home() {
                   </svg>
                 </button>
                 <a
-                  href="#"
+                  href="https://drive.google.com/file/d/1DFiTTCs2mdFpMvnHDZ2z48UvAIwQIhza/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-text-secondary hover:border-orange/30 hover:text-orange transition-colors duration-200 text-sm font-medium"
-                  onClick={(e) => e.preventDefault()}
                 >
-                  Download Resume
+                  View Resume
                 </a>
               </div>
             </div>
@@ -209,7 +210,7 @@ export default function Home() {
 
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {credentials.map((c) => (
+            {credentials.slice(0,2).map((c) => (
               <CredentialCard
                 key={c.label}
                 credential={c}

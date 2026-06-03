@@ -30,10 +30,18 @@ export const credentials: CredentialData[] = [
     date: "April 2024",
     type: "award",
     skills: ["Problem Solving", "Algorithms", "Competitive Programming"],
-    verifyUrl: "https://www.mcits.com/competitions/2024",
+    verifyUrl: "https://www.facebook.com/share/1BMqK5mzdw/",
     image: {
       src: "/coding_cert.jpeg",
       alt: "Certificate for 2nd place in MCITS 2024 Coding Competition",
     }
+  },
+  {
+    label: "3rd Place",
+    detail: "DICT Region XI Regional Startup Pitching Competition 2025",
+    date: "October 2025",
+    type: "award",
+    skills: ["Problem Solving", "Pitching"],
+    verifyUrl: "https://www.facebook.com/share/p/18XH2yvg36/",
   },
 ];

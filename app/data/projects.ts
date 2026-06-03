@@ -1,4 +1,33 @@
-import type { ProjectData } from "../components/ProjectModal";
+export interface ProjectData {
+  title: string;
+  tech: string;
+  label: string;
+  date: string;
+  description: string;
+  shortDescription: string;
+  role: string;
+  findings: string[];
+  links?: {
+    code?: string;
+    video?: string;
+    manuscript?: string;
+  };
+  stack?: string[];
+  visual?: "gantt" | "grid" | "wave";
+  images?: string[];
+  architectureUrl?: string;
+  architectureDescription?: string;
+  n8nUrl?: string;
+  n8nDescription?: string;
+  otherImages?: {
+    title: string;
+    label: string;
+    url?: string;
+    description: string;
+  }[];
+  videoEmbedLocation?: "slider" | "dedicated";
+  aspectRatio?: "16/10" | "video";
+}
 
 export const projects: ProjectData[] = [
   // {
@@ -19,8 +48,16 @@ export const projects: ProjectData[] = [
   //   stack: ["AWS Lambda", "AWS SQS", "DynamoDB", "API Gateway", "Strava API", "Discord API", "Gemini API", "AWS IAM"],
   //   visual: "grid",
   //   images: [],
-  //   architectureUrl: "",
-  //   architectureDescription: "An event-driven serverless webhook and slash command processor. Users trigger Discord Slash Commands or Strava publishes activity webhooks, which are swallowed by AWS API Gateway and immediately offloaded into an SQS queue. SQS decouples the network transaction, protecting the backend from Lambda cold start timeouts. An AWS Lambda worker processes the payload, loads authentication tokens from DynamoDB, queries Gemini Pro, and delivers rich coaching cards to Discord."
+  //   architectureUrl: "/strava_architecture.png",
+  //   architectureDescription: "An event-driven serverless webhook and slash command processor. Users trigger Discord Slash Commands or Strava publishes activity webhooks, which are swallowed by AWS API Gateway and immediately offloaded into an SQS queue. SQS decouples the network transaction, protecting the backend from Lambda cold start timeouts. An AWS Lambda worker processes the payload, loads authentication tokens from DynamoDB, queries Gemini Pro, and delivers rich coaching cards to Discord.",
+  //   otherImages: [
+  //     {
+  //       title: "System Architecture",
+  //       label: "Infrastructure",
+  //       url: "/strava_architecture.png",
+  //       description: "An event-driven serverless webhook and slash command processor. Users trigger Discord Slash Commands or Strava publishes activity webhooks, which are swallowed by AWS API Gateway and immediately offloaded into an SQS queue. SQS decouples the network transaction, protecting the backend from Lambda cold start timeouts. An AWS Lambda worker processes the payload, loads authentication tokens from DynamoDB, queries Gemini Pro, and delivers rich coaching cards to Discord."
+  //     }
+  //   ]
   // },
   {
     title: "Faculty Meeting AI Scheduler",
@@ -28,36 +65,36 @@ export const projects: ProjectData[] = [
     label: "AI Automation",
     date: "October 2025",
     description:
-      "An intelligent booking system for a school's faculty. Teachers submit availability through a Next.js frontend; a scheduling algorithm resolves conflicts and triggers n8n webhooks to book sessions with faculty. Replaced a manual pen and paper process where students will have to list.",
+      "An AI-powered conversational scheduling platform for academic faculty that merges agentic AI workflow automation with role-aware logic. Built with Next.js and an n8n-orchestrated AI agent connected to a PostgreSQL database, the system leverages Azure OAuth for secure institutional authentication. It autonomously parses user intent via an AI chatbot, resolves scheduling conflicts through an internal algorithmic pipeline, and triggers reliable webhook workflows to automate multi-room bookings and calendar synchronization.",
     shortDescription: "AI scheduler for faculty meetings.",
-    role: "Full-stack dev",
+    role: "Automation dev (Teams of 2)",
     findings: [
-      "Designed a conflict-resolution algorithm to resolve scheduling overlaps for rapid, real-time scheduling.",
-      "Architected calendar synchronization and automated room booking via high-reliability n8n webhook pipelines.",
-      "Reduced recurring manual coordination overhead across faculty meetings, eliminating hours of weekly administrative overhead.",
-      "Ensured robust calendar synchronization across simultaneous multi-room bookings."
+      "Connected microsoft oauth to securely authenticate students and faculty with their institutional accounts",
+      "Developed a custom AI agent workflow in n8n that autonomously parses natural language scheduling requests, checks for conflicts against a PostgreSQL database, and executes multi-room booking logic with conditional branching.",
     ],
     stack: ["Next.js", "n8n", "PostgreSQL", "Prisma"],
     visual: "gantt",
-    links: { code: "code", video: "video" },
+    links: { code: "https://github.com/LAFruto/MCMeet", video: "https://youtu.be/RmAbrai9WrI" },
     images: [
       "/MCMeet/mockup.webp",
       "/MCMeet/agenda.webp",
       "/MCMeet/cal_day.webp",
       "/MCMeet/cal_month.webp"
     ],
+    videoEmbedLocation: "dedicated",
+    aspectRatio: "16/10",
     otherImages: [
       {
         title: "System Architecture",
         label: "Infrastructure",
         url: "/MCMeet/Archi.webp",
-        description: "An event-driven orchestration architecture that decouples frontend scheduling requests from third-party calendar synchronizations. Submissions trigger quick conflict-validation routines, while asynchronous n8n worker nodes handle the Google Calendar API writes in the background."
+        description: "An event-driven orchestration architecture that manages an internal, PostgreSQL-backed scheduling system, completely decoupling the frontend from synchronous data operations. Scheduling submissions trigger immediate conflict-validation routines against the database, while asynchronous n8n worker nodes handle and finalize background database writes to update the internal calendar state. Users authenticate via Microsoft OAuth to seamlessly link their school email accounts"
       },
       {
         title: "n8n Integration Flow",
         label: "Workflow Automation",
         url: "/MCMeet/n8n_diagram.webp",
-        description: "An automated multi-node scheduling workflow built in n8n. Webhook triggers ingest availability data, route the payload through conditional check loops to resolve scheduling conflicts, write bookings to PostgreSQL, and dynamically push calendar invites and notification responses."
+        description: "An automated multi-node scheduling workflow built in n8n. Webhook triggers ingest availability data, route the payload through conditional check loops to resolve scheduling conflicts, write bookings to PostgreSQL."
       }
     ]
   },
@@ -67,24 +104,66 @@ export const projects: ProjectData[] = [
     label: "AI Integration",
     date: "July 2025",
     description:
-      "A cloud-native speech training application that transmits user audio to a FastAPI backend hosted on an Azure VM. Utilizing the WhisperX model for word-level alignment and phoneme transcription, it scores pronunciation accuracy against native speaker baselines. Metadata and transaction logs are stored in Supabase, while audio recordings and public assets are cached and served via Cloudflare R2 bucket storage.",
+      "A cloud-native speech training application that transmits user audio to a FastAPI backend hosted on an Azure VM. Utilizing the WhisperX model for character-level alignment and phoneme transcription. Metadata and transaction logs are stored in Supabase, while audio recordings and public assets are cached and served via Cloudflare R2 bucket storage.",
     shortDescription: "AI-powered speech coach for Filipino language learners.",
-    role: "AI integration engineer",
+    role: "Backend and AI integration (Team of 3)",
     findings: [
       "Integrated WhisperX speech-to-text with phoneme alignment scoring, obtaining word-level timing precision for native model comparison.",
-      "Deployed a high-performance FastAPI server inside an Azure VM, optimizing inference latency to deliver phoneme scoring rapidly to the client.",
-      "Utilized Supabase for real-time user database sync and secure authentication, coupled with Cloudflare R2 bucket storage to achieve fast and responsive asset loading.",
-      "Optimized multi-part REST API request flows, ensuring stable and atomic payload deliveries during live speaker practice."
+      "Deployed a FastAPI server in an Azure VM",
+      "Utilized Supabase for real-time user database sync, coupled with Cloudflare R2 bucket storage to achieve fast and responsive asset loading.",
+      "Implemented Spaced Repetition scheduling logic to optimize user retention and pronunciation improvement over time"
     ],
     stack: ["React", "FastAPI", "Azure VM", "WhisperX", "Supabase", "Cloudflare R2", "REST API"],
-    visual: "wave",
-    images: [],
+    links: {
+      video: "/SpeechCoach/Demo_vid.mp4"
+    },
+    images: [
+      "/SpeechCoach/mockup.webp",
+      "/SpeechCoach/mockup2.webp"
+    ],
     otherImages: [
       {
         title: "System Architecture",
         label: "Infrastructure",
         url: "",
-        description: "A high-performance cloud-native machine learning pipeline. Audio payloads are sent from the React frontend via REST API endpoints to a FastAPI server hosted on an Azure VM, which executes phoneme-level WhisperX inference. User scores and metadata are stored in Supabase, while raw audio files are persisted securely in Cloudflare R2 bucket storage."
+        description: "A cloud-native machine learning pipeline. Audio payloads are sent from the React frontend via REST API endpoints to a FastAPI server hosted on an Azure VM, which executes phoneme-level WhisperX inference. User scores and metadata are stored in Supabase, while raw audio files are persisted securely in Cloudflare R2 bucket storage."
+      }
+    ]
+  },
+  {
+    title: "CluckTrack: IoT Coop Surveillance",
+    tech: "YOLOv8s · ESP32-CAM · Firebase · Flutter",
+    label: "IoT & Computer Vision",
+    date: "May 2024",
+    description:
+      "An automated smart chicken coop monitoring system built to track native chicken activity and alert poultry raisers of potential problems. The system uses a budget-friendly ESP32-CAM module mounted inside the coop to snap photos at regular intervals and send them to a connected laptop. A specialized AI model (YOLOv8s) on the laptop analyzes the images to keep a count of active chickens. If any unusual inactivity or potential threats are detected, the system updates a mobile app and instantly triggers a cellular module to text an emergency alert directly to the farmer's phone.",
+    shortDescription: "Co-authored IoT coop surveillance system running YOLOv8s object detection.",
+    role: "IOT & AI developer (Team of 3)",
+    findings:[
+      "Successfully built and trained YOLOv8s model that accurately identified local native chickens with 92.8% precision under normal coop lighting conditions.",
+      "Chose an image snapshot polling method instead of video streaming to save device memory, protect the camera from overheating, and ensure reliable data transmission over weak Wi-Fi.",
+      "Integrated a backup cellular text alert layer that operates independently of internet access, ensuring farmers receive immediate emergency notifications even during rural network outages.",
+      "Co-authored an IEEE-published research paper documenting the system, the creation of the custom chicken image dataset, and its practical benefits for backyard poultry farming."],
+    stack: ["YOLOv8s", "ESP32-CAM", "Firebase", "Arduino Uno", "SIM800C GSM", "Flutter", "Python", "C++"],
+    visual: "wave",
+    links: {
+      manuscript: "https://ieeexplore.ieee.org/document/10928195"
+    },
+    images: [
+      "/CluckTrack/main.webp"
+    ],
+    otherImages: [
+      {
+        title: "System Architecture",
+        label: "Infrastructure",
+        url: "/CluckTrack/archi.webp",
+        description: "An IoT-to-Cloud edge AI pipeline. An ESP32-CAM captures and streams coop video frames over Wi-Fi to Firebase Cloud Storage. A server-side YOLOv8s model ingests the stream, performing real-time object detection and tracking. If coop activity counts drop or chickens show prolonged inactivity, a serial triggers is sent to an an Arduino Uno with a SIM800C GSM module, broadcasting cellular SMS alerts to the farmer while syncing stats to a Flutter mobile app."
+      },
+      {
+        title: "Circuit Diagram",
+        label: "Hardware",
+        url: "/CluckTrack/circuit_diagram.webp",
+        description: "A detailed schematic of the coop edge devices. An ESP32-CAM functions as the vision hub. The Arduino Uno orchestrates communication and commands, interface connections with the SIM800C GSM module, establishing a secondary cellular SMS signaling network when standard Wi-Fi is lost."
       }
     ]
   },
@@ -96,52 +175,26 @@ export const projects: ProjectData[] = [
     description:
       "A management system handling the full resort workflow. The Django backend manages concurrent bookings with transactional integrity, room inventory, billing, and housekeeping assignments. The React frontend provides staff with fast, keyboard-driven workflows for front-desk operations.",
     shortDescription: "End-to-end resort management system that streamline resort processes.",
-    role: "Backend dev",
+    role: "Fullstack dev (Team of 5)",
     findings: [
-      "Engineered room inventory, multi-guest booking, and staff workflows using highly normalized, concurrent Django database models.",
-      "Implemented strict PostgreSQL transaction isolation levels, guaranteeing reservation integrity and double-booking prevention under peak concurrent traffic.",
-      "Designed specialized front-desk screens utilizing React keyboard-driven flows, significantly cutting average guest check-in times.",
-      "Optimized query prefetching and database indexing, reducing front-desk dashboard operational loading latency."
+      "Designed ER diagrams and implemented a normalized PostgreSQL database schema to manage complex relationships between guests, rooms, bookings, billing, and housekeeping.",
+      "Developed RESTful API endpoints in Django to handle resort operations",
+      "Deployed the application in digitalocean app platform, utilizing managed PostgreSQL for data persistence and ensuring secure, scalable hosting.",
+      "Implemented Django APIs to React frontend"
     ],
-    stack: ["Django", "DRF", "React", "PostgreSQL", "Redis", "Docker"],
+    stack: ["Django", "DRF", "React", "PostgreSQL", "Docker"],
     visual: "grid",
-    images: [],
-    otherImages: [
-      {
-        title: "System Architecture",
-        label: "Infrastructure",
-        url: "",
-        description: "A robust monolithic backend architecture built for database transaction safety. Utilizes strict PostgreSQL isolation levels to guarantee race-condition prevention across concurrent room booking attempts, coupled with a write-through Redis cache."
-      }
-    ]
-  },
-  {
-    title: "CluckTrack: IoT Coop Surveillance",
-    tech: "YOLOv8s · ESP32-CAM · Firebase · Flutter",
-    label: "IoT & Computer Vision",
-    date: "May 2024",
-    description:
-      "An advanced, co-authored IoT poultry surveillance and management system designed to automate livestock observation. The system utilizes ESP32-CAM modules to stream coop video feeds directly to Firebase. An edge-deployed YOLOv8s computer vision model tracks active chicken counts, while an Arduino-driven SIM800C GSM module sends automated SMS alerts to farmers upon anomaly or inactivity detection. Managed via a Flutter mobile application.",
-    shortDescription: "Co-authored IoT coop surveillance system running YOLOv8s object detection.",
-    role: "IoT systems & ML engineer",
-    findings: [
-      "Integrated YOLOv8s object detection algorithms, achieving high precision and recall in real-time chicken tracking under varied coop lighting.",
-      "Developed ESP32-CAM firmware to stream low-latency video and image assets over Wi-Fi directly to Firebase Storage and Realtime Database.",
-      "Engineered a hardware cellular alert layer using an Arduino Uno and SIM800C GSM shield, dispatching SMS alerts promptly upon anomaly detection.",
-      "Co-authored research paper detailing edge-AI methodologies and sustainable farming outcomes, with real-time Flutter monitoring interface."
-    ],
-    stack: ["YOLOv8s", "ESP32-CAM", "Firebase", "Arduino Uno", "SIM800C GSM", "Flutter", "Python", "C++"],
-    visual: "wave",
     links: {
-      manuscript: "https://ieeexplore.ieee.org"
+      video: "https://www.youtube.com/watch?v=nfA3tLsWmW0"
     },
-    images: [],
+    images: ["/Beach/mockup (3).webp", "/Beach/dashboard.webp", "/Beach/dashboard2.webp"],
+    aspectRatio: "video",
     otherImages: [
       {
         title: "System Architecture",
         label: "Infrastructure",
         url: "",
-        description: "An IoT-to-Cloud edge AI pipeline. An ESP32-CAM captures and streams coop video frames over Wi-Fi to Firebase Cloud Storage. A server-side YOLOv8s model ingests the stream, performing real-time object detection and tracking. If coop activity counts drop or chickens show prolonged inactivity, a webhook triggers a hardware loop on an Arduino Uno with a SIM800C GSM shield, broadcasting cellular SMS alerts to the farmer while syncing stats to a Flutter mobile app."
+        description: "A secure, decoupled system architecture. The React frontend is hosted on Vercel for rapid delivery, communicating via HTTPS with a monolithic Django backend running on DigitalOcean App Platform. Data persistence is managed on DigitalOcean PostgreSQL with strict isolation levels to guarantee reservation integrity."
       }
     ]
   }
