@@ -17,7 +17,8 @@ import { useModalUrlSync, slugify } from "./hooks/useModalUrlSync";
 import ContactModal from "./components/ContactModal";
 import ContactCard from "./components/ContactCard";
 export default function Home() {
-  const [selectedCredential, setSelectedCredential] = useState<CredentialData | null>(null);
+  const [selectedCredential, setSelectedCredential] =
+    useState<CredentialData | null>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   const selectCredential = useModalUrlSync({
@@ -31,9 +32,9 @@ export default function Home() {
     <>
       <SideNav />
       <div
-          aria-hidden="true"
-          className="absolute bottom-0 left-0 w-96 h-96 bg-orange-deep/12 blur-3xl rounded-full animate-blob-alt animate-delay-2 -translate-x-1/2 translate-y-1/2"
-        />
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 w-96 h-96 bg-orange-deep/12 blur-3xl rounded-full animate-blob-alt animate-delay-2 -translate-x-1/2 translate-y-1/2"
+      />
       {/* Hero */}
       <Section
         id="hero"
@@ -43,7 +44,6 @@ export default function Home() {
           aria-hidden="true"
           className="absolute top-0 right-0 w-[70%] h-full bg-orange/6 blur-3xl rounded-full animate-blob animate-delay-1 translate-x-1/4 -translate-y-1/3"
         />
-
 
         <div className="relative max-w-5xl mx-auto w-full py-20">
           <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[60%_40%] lg:gap-4 lg:items-center">
@@ -77,7 +77,13 @@ export default function Home() {
                 >
                   Get in touch
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M5 3l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </button>
                 <a
@@ -98,12 +104,19 @@ export default function Home() {
         </div>
       </Section>
 
-      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div
+        aria-hidden="true"
+        className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16"
+      >
         <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
       </div>
 
       {/* Experience */}
-      <Section stagger id="experience" className="relative overflow-hidden px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+      <Section
+        stagger
+        id="experience"
+        className="relative overflow-hidden px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
+      >
         <div className="max-w-5xl mx-auto relative">
           <SectionHeader title="Experience/Education" number="01" />
           {experienceData.map((exp) => (
@@ -120,16 +133,25 @@ export default function Home() {
         </div>
       </Section>
 
-      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div
+        aria-hidden="true"
+        className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16"
+      >
         <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
       </div>
 
       {/* Projects */}
-      <Section stagger id="projects" className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-        <div aria-hidden="true" className="absolute bottom-0 right-0 w-[50%] h-80 bg-amber/4 blur-3xl rounded-full animate-blob-wide animate-delay-1 translate-x-1/3 translate-y-1/3"/>        
+      <Section
+        stagger
+        id="projects"
+        className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
+      >
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 right-0 w-[50%] h-80 bg-amber/4 blur-3xl rounded-full animate-blob-wide animate-delay-1 translate-x-1/3 translate-y-1/3"
+        />
         <div className="max-w-5xl mx-auto relative">
           <SectionHeader title="Projects" number="02" />
-
 
           <div className="border-t-2 border-orange/30">
             {projects.slice(0, 3).map((project, i) => {
@@ -139,9 +161,15 @@ export default function Home() {
                 <Link
                   key={project.title}
                   href={`/projects/${projectSlug}`}
-                  className={`group cursor-pointer flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} border-b border-border/30 hover:bg-surface/40 transition-all duration-500`}
+                  className={`group cursor-pointer flex flex-col ${
+                    isEven ? "md:flex-row" : "md:flex-row-reverse"
+                  } border-b border-border/30 hover:bg-surface/40 transition-all duration-500`}
                 >
-                  <div className={`w-full md:w-2/5 aspect-[4/3] overflow-hidden bg-surface-elevated/20 flex items-center justify-center ${isEven ? "md:border-r" : "md:border-l"} border-border/10 group-hover:bg-surface-elevated/40 transition-colors duration-500 relative`}>
+                  <div
+                    className={`w-full md:w-2/5 aspect-[4/3] overflow-hidden bg-surface-elevated/20 flex items-center justify-center ${
+                      isEven ? "md:border-r" : "md:border-l"
+                    } border-border/10 group-hover:bg-surface-elevated/40 transition-colors duration-500 relative`}
+                  >
                     {project.images && project.images.length > 0 ? (
                       <img
                         src={project.images[0]}
@@ -158,7 +186,8 @@ export default function Home() {
                     <div className="flex min-w-0 flex-col gap-3">
                       <div className="min-w-0">
                         <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase text-orange-muted block mb-2">
-                          {String(i + 1).padStart(2, "0")} / {project.label} / {project.date}
+                          {String(i + 1).padStart(2, "0")} / {project.label} /{" "}
+                          {project.date}
                         </span>
                         <h3 className="font-heading text-xl sm:text-2xl text-text-primary leading-tight group-hover:text-orange transition-colors duration-300 break-words">
                           {project.title}
@@ -204,19 +233,28 @@ export default function Home() {
         </div>
       </Section>
 
-      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div
+        aria-hidden="true"
+        className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16"
+      >
         <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
       </div>
 
       {/* Credentials */}
-      <Section stagger id="credentials" className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-        <div aria-hidden="true" className="absolute top-1/2 right-0 w-72 h-72 bg-orange-deep/6 blur-3xl rounded-full animate-blob-slow animate-delay-2 translate-x-1/2 -translate-y-1/2" />
+      <Section
+        stagger
+        id="credentials"
+        className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
+      >
+        <div
+          aria-hidden="true"
+          className="absolute top-1/2 right-0 w-72 h-72 bg-orange-deep/6 blur-3xl rounded-full animate-blob-slow animate-delay-2 translate-x-1/2 -translate-y-1/2"
+        />
         <div className="max-w-5xl mx-auto relative">
           <SectionHeader title="Credentials" number="03" />
 
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {credentials.slice(0,2).map((c) => (
+            {credentials.slice(0, 2).map((c) => (
               <CredentialCard
                 key={c.label}
                 credential={c}
@@ -234,20 +272,28 @@ export default function Home() {
               Show more
             </Link>
           </div>
-
         </div>
       </Section>
 
-      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div
+        aria-hidden="true"
+        className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16"
+      >
         <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
       </div>
 
       {/* About */}
-      <Section stagger id="about" className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-        <div aria-hidden="true" className="absolute top-0 left-0 w-80 h-80 bg-orange-deep/8 blur-3xl rounded-full animate-blob-alt animate-delay-3 -translate-x-1/3 -translate-y-1/3" />
+      <Section
+        stagger
+        id="about"
+        className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
+      >
+        <div
+          aria-hidden="true"
+          className="absolute top-0 left-0 w-80 h-80 bg-orange-deep/8 blur-3xl rounded-full animate-blob-alt animate-delay-3 -translate-x-1/3 -translate-y-1/3"
+        />
         <div className="max-w-5xl mx-auto relative">
           <SectionHeader title="About" number="04" />
-
 
           <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
             <div className="mb-8 lg:mb-0">
@@ -257,36 +303,47 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-6 text-text-secondary leading-relaxed text-base sm:text-lg">
               <p>
-                I write backend code that stays up. Django, FastAPI, Next.js
-                server-side. I care about clean architecture, solid testing, and good devops practices. 
-                I want to build systems that are reliable, maintainable, and just fun to work with.
+                A Computer Science graduate and Cisco Certified Network
+                Associate (CCNA) focused on writing functional, server-side code
+                in Node.js and Python, handling everything from API routing to
+                database management on Supabase and PostgreSQL.
               </p>
               <p>
-                Lately wiring AI into real workflows: speech processing
-                pipelines, automated scheduling agents and AI agents. I&apos;m not chasing the
-                latest model; I&apos;m making the plumbing around it solid.
+                Lately, I've been focusing on the core infrastructure around
+                AI—building reliable pipelines for speech processing, automated
+                scheduling agents, and workflow automation. I leverage a
+                foundational understanding of network connectivity to bridge the
+                gap between application code and deployment environments,
+                seeking to grow within Cloud Engineering and DevOps roles where
+                I can help build systems that run reliably at scale.
               </p>
               <p>
-                Moving toward cloud engineering. I want to build systems that
-                scale past a single VPS without turning into spaghetti. Learning
-                the AWS ecosystem, infrastructure-as-code, and the patterns that
-                keep distributed systems boring in the best way.
-              </p>
-              <p>
-                When I am not designing APIs or configuring cloud infrastructure, I am usually out running, training for my next milestone, and tracking my progress on Strava.
+                Outside of projects and tech stuff, I apply that same discipline
+                and consistency to my running, constantly training for the next
+                milestone and tracking my progress on Strava.
               </p>
             </div>
           </div>
         </div>
       </Section>
 
-      <div aria-hidden="true" className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div
+        aria-hidden="true"
+        className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16"
+      >
         <div className="h-px bg-gradient-to-r from-transparent via-orange/15 to-transparent" />
       </div>
 
       {/* Contact */}
-      <Section stagger id="contact" className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-        <div aria-hidden="true" className="absolute bottom-0 right-0 w-[50%] h-80 bg-amber/4 blur-3xl rounded-full animate-blob-wide animate-delay-1 translate-x-1/3 translate-y-1/3"/>        
+      <Section
+        stagger
+        id="contact"
+        className="relative overflow-visible px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
+      >
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 right-0 w-[50%] h-80 bg-amber/4 blur-3xl rounded-full animate-blob-wide animate-delay-1 translate-x-1/3 translate-y-1/3"
+        />
         <div className="max-w-5xl mx-auto relative">
           <SectionHeader title="Contact" number="05" />
 
@@ -294,21 +351,22 @@ export default function Home() {
             <div className="flex flex-col justify-start gap-6 py-2">
               <div className="flex items-center gap-3">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span>
                 </span>
-                <span className="font-mono text-xs text-green-500 uppercase tracking-widest font-semibold">
+                <span className="font-mono text-xs text-orange-500 uppercase tracking-widest font-semibold">
                   Available for work
                 </span>
               </div>
-              
+
               <div className="flex flex-col gap-4">
                 <h3 className="font-heading text-3xl sm:text-4xl text-text-primary font-bold tracking-tight">
                   James Andrei Nadela
                 </h3>
                 <p className="text-text-secondary text-base sm:text-lg leading-relaxed max-w-md">
                   Open to opportunities, collaborations, and conversations about
-                  backend systems, AI pipelines, or cloud architecture. Let&apos;s build systems that scale.
+                  backend systems, AI pipelines, or cloud architecture.
+                  Let&apos;s build systems that scale.
                 </p>
               </div>
             </div>

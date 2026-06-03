@@ -9,19 +9,19 @@ export interface ExperienceData {
 
 export const experienceData: ExperienceData[] = [
     {
-        logo: 'TP',
-        company: "Turnkey Philippines",
+        logo: '/turnkey_logo.jpeg',
+        company: "Remarkablism Services Corporation | Turnkey Philippines",
         role: "Backend Developer Intern",
         date: "Dec 2025 - March 2026",
-        description: "Built and deployed the backend infrastructure for a client mobile application with a team of interns. Developed RESTful APIs using Fastify, designed scalable database schemas, and hosted both the application and self-managed n8n workflows on DigitalOcean. Implemented CI/CD pipelines for streamlined deployments while gaining hands-on experience in cloud infrastructure, backend architecture, and development workflows.",
+        description: "Built and deployed the infrastructure for a client mobile application with a team of interns. Developed RESTful APIs using Fastify, designed database schemas, and hosted both the application and self-managed n8n workflows on DigitalOcean. Implemented CI/CD pipelines for streamlined deployments while gaining hands-on experience in cloud infrastructure, backend architecture, and development workflows.",
         techStack: ["Fastify", "n8n", "DigitalOcean", "TypeScript", "Supabase"]
     },
     {
-        logo: 'MP',
+        logo: '/mmcm.jpeg',
         company: "Mapua Malayan Colleges Mindanao",
         role: "BS Computer Science Student",
-        date: "2022 - 2026",
-        description:"Consistent Dean's Lister with coursework focused on data structures, algorithms, databases, software engineering, machine learning, and web development.",
+        date: "August 2022 - May 2026",
+        description: "Consistent Dean's Lister with coursework focused on data structures, algorithms, databases, software engineering, machine learning, and web development, graduated with latin honors",
         techStack: [ "Data Structures & Algorithms","Machine Learning","Software Engineering"]
     }
 ]

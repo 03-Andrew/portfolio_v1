@@ -207,6 +207,20 @@ html {
   }
 }
 
+.experience-logo {
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+[data-theme="dark"] .experience-logo {
+  opacity: 0.8;
+  filter: brightness(0.9);
+}
+
+[data-theme="dark"] .group:hover .experience-logo {
+  opacity: 1;
+  filter: brightness(1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -9,11 +9,19 @@ export default function ExperienceItem({
     techStack: string[];
 }) {
   return (
-    <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16 py-6">
+    <div className="lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16 py-6 group">
       <div className="mb-6 lg:mb-0">
         <div className="flex items-start gap-4">
-          <div className="w-11 h-11 rounded-sm border border-orange/10 flex items-center justify-center shrink-0">
-            <span className="font-heading text-base text-orange">{logo}</span>
+          <div className="w-11 h-11 rounded-sm border border-border flex items-center justify-center shrink-0 overflow-hidden bg-surface">
+            {logo.startsWith("/") || logo.includes(".") ? (
+              <img
+                src={logo}
+                alt={`${company} logo`}
+                className="w-full h-full object-cover experience-logo"
+              />
+            ) : (
+              <span className="font-heading text-base text-orange">{logo}</span>
+            )}
           </div>
           <div className="flex flex-col gap-0.5">
             <span className="font-heading text-lg text-text-primary leading-tight">
