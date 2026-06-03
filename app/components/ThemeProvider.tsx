@@ -37,6 +37,7 @@ export default function ThemeProvider({
       const current = sessionStorage.getItem("currentPath");
       if (current && current !== pathname) {
         sessionStorage.setItem("previousPath", current);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).__navigatedWithinApp = true;
       }
       sessionStorage.setItem("currentPath", pathname);
@@ -50,6 +51,7 @@ export default function ThemeProvider({
       (window.matchMedia("(prefers-color-scheme: light)").matches
         ? "light"
         : "dark");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(preferred);
     setMounted(true);
   }, []);

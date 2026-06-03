@@ -20,13 +20,13 @@
 }
 
 :root {
-  --dot-color: oklch(0.6 0.2 40 / 0.12);
+  --dot-color: oklch(0.6 0.2 40 / 0.04);
   --grid-line-color: oklch(0.6 0.2 40 / 0.10);
 }
 
 /* dark overrides — unlayered beats @theme layer */
 [data-theme="dark"] {
-  --dot-color: oklch(0.67 0.19 45 / 0.10);
+  --dot-color: oklch(0.67 0.19 45 / 0.05);
   --grid-line-color: oklch(0.67 0.19 45 / 0.08);
   --color-canvas: oklch(0.15 0.005 55);                                                                             
   --color-surface: oklch(0.19 0.005 55);                                                                            
@@ -49,15 +49,11 @@
 
 body {
   overflow-x: hidden;
-  /* background:
+  background:
     radial-gradient(circle, var(--dot-color) 1.5px, transparent 1.5px),
     var(--color-canvas);
   background-size: 50px 50px, 100%;
   background-attachment: fixed;
-  color: var(--color-text-primary);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
 }
 
 ::selection {

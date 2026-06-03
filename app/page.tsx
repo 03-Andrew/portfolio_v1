@@ -14,8 +14,11 @@ import { projects } from "./data/projects";
 import { experienceData } from "./data/experience";
 import ExperienceItem from "./components/ExperienceItem";
 import { useModalUrlSync, slugify } from "./hooks/useModalUrlSync";
+import ContactModal from "./components/ContactModal";
+import ContactCard from "./components/ContactCard";
 export default function Home() {
   const [selectedCredential, setSelectedCredential] = useState<CredentialData | null>(null);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   const selectCredential = useModalUrlSync({
     paramName: "credential",
@@ -43,16 +46,19 @@ export default function Home() {
 
 
         <div className="relative max-w-5xl mx-auto w-full py-20">
-          <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[60%_40%] lg:gap-4 lg:items-center">            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-4">
-                <span className="w-8 h-px bg-orange" />
-                <p className="font-mono text-sm tracking-widest uppercase text-orange">
-                  Backend Developer · Aspiring Cloud Engineer
-                </p>
+          <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[60%_40%] lg:gap-4 lg:items-center">
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+                <div className="flex items-center gap-4">
+                  <span className="w-8 h-px bg-orange" />
+                  <p className="font-mono text-xs sm:text-sm tracking-widest uppercase text-orange">
+                    Backend Developer · Aspiring Cloud Engineer
+                  </p>
+                </div>
               </div>
 
-              <h1 className="font-heading text-6xl sm:text-7xl lg:text-8xl leading-[0.9] tracking-tight">
-                Andrew<span className="text-orange">.</span>
+              <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-text-primary">
+                Andrew
               </h1>
 
               <p className="text-lg sm:text-xl text-text-secondary max-w-lg leading-relaxed">
@@ -266,6 +272,9 @@ export default function Home() {
                 the AWS ecosystem, infrastructure-as-code, and the patterns that
                 keep distributed systems boring in the best way.
               </p>
+              <p>
+                When I am not designing APIs or configuring cloud infrastructure, I am usually out running, training for my next milestone, and tracking my progress on Strava.
+              </p>
             </div>
           </div>
         </div>
@@ -281,61 +290,141 @@ export default function Home() {
         <div className="max-w-5xl mx-auto relative">
           <SectionHeader title="Contact" number="05" />
 
-
-          <div className="lg:grid lg:grid-cols-[1fr_1fr] lg:gap-16">
-            <div className="flex flex-col gap-4">
-              <p className="text-text-secondary text-lg leading-relaxed max-w-md">
-                Open to opportunities, collaborations, and conversations about
-                backend systems, AI pipelines, or cloud architecture.
-              </p>
-
-              <div className="flex flex-col gap-2 mt-4">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-text-secondary hover:text-orange transition-colors duration-200 group py-2">
-                  <span className="w-6 h-px bg-orange/30 group-hover:bg-orange group-hover:w-10 transition-all duration-300" />
-                  GitHub
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-text-secondary hover:text-orange transition-colors duration-200 group py-2">
-                  <span className="w-6 h-px bg-orange/30 group-hover:bg-orange group-hover:w-10 transition-all duration-300" />
-                  LinkedIn
-                </a>
+          <div className="lg:grid lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+            <div className="flex flex-col justify-start gap-6 py-2">
+              <div className="flex items-center gap-3">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                </span>
+                <span className="font-mono text-xs text-green-500 uppercase tracking-widest font-semibold">
+                  Available for work
+                </span>
+              </div>
+              
+              <div className="flex flex-col gap-4">
+                <h3 className="font-heading text-3xl sm:text-4xl text-text-primary font-bold tracking-tight">
+                  James Andrei Nadela
+                </h3>
+                <p className="text-text-secondary text-base sm:text-lg leading-relaxed max-w-md">
+                  Open to opportunities, collaborations, and conversations about
+                  backend systems, AI pipelines, or cloud architecture. Let&apos;s build systems that scale.
+                </p>
               </div>
             </div>
 
-            <form
-              className="flex flex-col gap-4 mt-10 lg:mt-0"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const form = e.currentTarget;
-                const name = (form.elements.namedItem("name") as HTMLInputElement).value;
-                const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-                const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
-                const subject = `Portfolio contact from ${name}`;
-                const body = `${message}\n\n— ${name} (${email})`;
-                window.location.href = `mailto:hello@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-              }}
-            >
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex flex-col gap-1.5 flex-1">
-                  <label htmlFor="contact-name" className="font-mono text-xs tracking-widest uppercase text-text-muted">Name</label>
-                  <input id="contact-name" name="name" type="text" required placeholder="Your name" className="px-4 py-3 rounded-md bg-surface border border-border text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-orange/50 transition-colors duration-200 text-sm" />
-                </div>
-                <div className="flex flex-col gap-1.5 flex-1">
-                  <label htmlFor="contact-email" className="font-mono text-xs tracking-widest uppercase text-text-muted">Email</label>
-                  <input id="contact-email" name="email" type="email" required placeholder="you@example.com" className="px-4 py-3 rounded-md bg-surface border border-border text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-orange/50 transition-colors duration-200 text-sm" />
-                </div>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="contact-message" className="font-mono text-xs tracking-widest uppercase text-text-muted">Message</label>
-                <textarea id="contact-message" name="message" required rows={4} placeholder="Tell me about your project or opportunity..." className="px-4 py-3 rounded-md bg-surface border border-border text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-orange/50 transition-colors duration-200 text-sm resize-none" />
-              </div>
-              <button type="submit" className="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-md bg-orange text-white font-medium hover:bg-orange-bright transition-colors duration-200 w-fit text-sm">
-                Send message
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M1 1l12 6-12 6 3-6-3-6z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </form>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 lg:mt-0">
+              {/* Direct Email Card */}
+              <ContactCard
+                title="andreinadela052@gmail.com"
+                label="Direct Contact"
+                description="Click to start a conversation or copy my address."
+                isDoubleWide
+                onClick={() => setIsContactOpen(true)}
+                icon={
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                }
+              />
 
+              {/* GitHub Card */}
+              <ContactCard
+                title="GitHub"
+                label="Source Code"
+                href="https://github.com/03-Andrew"
+                icon={
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                  </svg>
+                }
+              />
+
+              {/* LinkedIn Card */}
+              <ContactCard
+                title="LinkedIn"
+                label="Professional"
+                href="https://www.linkedin.com/in/andrei-nadela"
+                icon={
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect x="2" y="9" width="4" height="12" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                }
+              />
+
+              {/* Credly Card */}
+              <ContactCard
+                title="Credly"
+                label="Badges & Certs"
+                href="https://www.credly.com/users/james-andrei-nadela"
+                icon={
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="8" r="7" />
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                  </svg>
+                }
+              />
+
+              {/* Strava Card */}
+              <ContactCard
+                title="Strava"
+                label="Fitness & Running"
+                href="https://www.strava.com/athletes/87837103"
+                icon={
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                  </svg>
+                }
+              />
+            </div>
           </div>
         </div>
       </Section>
@@ -352,6 +441,10 @@ export default function Home() {
         credential={selectedCredential}
         isOpen={selectedCredential !== null}
         onClose={() => selectCredential(null)}
+      />
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
       />
     </>
   );

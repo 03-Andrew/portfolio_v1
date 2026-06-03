@@ -33,7 +33,7 @@ export default function ProjectImageSlider({
   const [tallestRatio, setTallestRatio] = useState<number | null>(null);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const startTimeRef = useRef<number>(Date.now());
+  const startTimeRef = useRef<number>(0);
   const remainingTimeRef = useRef<number>(INTERVAL_MS);
 
   const currentSlide = slides[currentIndex];

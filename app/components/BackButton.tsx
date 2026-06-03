@@ -12,6 +12,7 @@ export default function BackButton() {
     if (typeof window !== "undefined") {
       const prevPath = sessionStorage.getItem("previousPath");
       if (prevPath === "/") {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setBackUrl("/");
       } else {
         setBackUrl("/projects");
@@ -29,6 +30,7 @@ export default function BackButton() {
         }
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const hasClientNavigation = !!(window as any).__navigatedWithinApp;
       if (hasClientNavigation || isInternalReferrer) {
         setHasHistory(true);
