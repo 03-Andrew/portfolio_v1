@@ -309,7 +309,7 @@ export default function Home() {
                 database management on Supabase and PostgreSQL.
               </p>
               <p>
-                Lately, I've been focusing on the core infrastructure around
+                Lately, I&apos;ve been focusing on the core infrastructure around
                 AI—building reliable pipelines for speech processing, automated
                 scheduling agents, and workflow automation. I leverage a
                 foundational understanding of network connectivity to bridge the
@@ -351,16 +351,16 @@ export default function Home() {
             <div className="flex flex-col justify-start gap-6 py-2">
               <div className="flex items-center gap-3">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange"></span>
                 </span>
-                <span className="font-mono text-xs text-orange-500 uppercase tracking-widest font-semibold">
+                <span className="font-mono text-xs text-orange uppercase tracking-widest font-semibold">
                   Available for work
                 </span>
               </div>
 
               <div className="flex flex-col gap-4">
-                <h3 className="font-heading text-3xl sm:text-4xl text-text-primary font-bold tracking-tight">
+                <h3 className="font-heading text-3xl sm:text-4xl text-text-primary tracking-tight">
                   James Andrei Nadela
                 </h3>
                 <p className="text-text-secondary text-base sm:text-lg leading-relaxed max-w-md">
