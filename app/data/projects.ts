@@ -29,34 +29,6 @@ export interface ProjectData {
 }
 
 export const projects: ProjectData[] = [
-  // {
-  //   title: "Strava AI Coach Discord Bot",
-  //   label: "Serverless AI",
-  //   date: "May 2026",
-  //   description:
-  //     "A serverless, AI-driven fitness coach integrated directly into Discord. The bot ingests real-time activity and club webhook events from the Strava API, allowing athletes to trigger performance diagnostics, leaderboards, and custom workouts via Discord Slash Commands. Utilizing Gemini Pro, the bot generates personalized coaching advice, kudos, and performance cards.",
-  //   shortDescription: "AI-powered fitness coach bot for Discord synced with Strava.",
-  //   role: "Serverless systems engineer",
-  //   findings: [
-  //     "Architected an event-driven serverless pipeline using AWS API Gateway and SQS to ingest Strava activity webhooks and Discord Slash Commands.",
-  //     "Completely neutralized Lambda cold start latency by offloading webhook and command execution to SQS queues, guaranteeing rapid and reliable API Gateway handshakes.",
-  //     "Engineered a distributed token and session-state storage layer using DynamoDB, securing athlete credentials with strict IAM boundary roles.",
-  //     "Connected the Gemini API to process athletes' fitness trends and club activity, rendering rich, contextual coaching cards directly in chat."
-  //   ],
-  //   stack: ["AWS Lambda", "AWS SQS", "DynamoDB", "API Gateway", "Strava API", "Discord API", "Gemini API", "AWS IAM"],
-  //   visual: "grid",
-  //   images: [],
-  //   architectureUrl: "/strava_architecture.png",
-  //   architectureDescription: "An event-driven serverless webhook and slash command processor. Users trigger Discord Slash Commands or Strava publishes activity webhooks, which are swallowed by AWS API Gateway and immediately offloaded into an SQS queue. SQS decouples the network transaction, protecting the backend from Lambda cold start timeouts. An AWS Lambda worker processes the payload, loads authentication tokens from DynamoDB, queries Gemini Pro, and delivers rich coaching cards to Discord.",
-  //   otherImages: [
-  //     {
-  //       title: "System Architecture",
-  //       label: "Infrastructure",
-  //       url: "/strava_architecture.png",
-  //       description: "An event-driven serverless webhook and slash command processor. Users trigger Discord Slash Commands or Strava publishes activity webhooks, which are swallowed by AWS API Gateway and immediately offloaded into an SQS queue. SQS decouples the network transaction, protecting the backend from Lambda cold start timeouts. An AWS Lambda worker processes the payload, loads authentication tokens from DynamoDB, queries Gemini Pro, and delivers rich coaching cards to Discord."
-  //     }
-  //   ]
-  // },
   {
     title: "Faculty Meeting AI Scheduler",
     label: "AI Automation",
@@ -181,6 +153,38 @@ export const projects: ProjectData[] = [
           "A detailed schematic of the coop edge devices. An ESP32-CAM functions as the vision hub. The Arduino Uno orchestrates communication and commands, interface connections with the SIM800C GSM module, establishing a secondary cellular SMS signaling network when standard Wi-Fi is lost.",
       },
     ],
+  },
+  {
+    title: "Strava AI Coach Discord Bot",
+    label: "Cloud Infra (In Progress)",
+    date: "May 2026",
+    description:
+      "A serverless, AI-driven fitness coach integrated directly into Discord. The bot ingests real-time activity and club webhook events from the Strava API, allowing athletes to trigger performance diagnostics via Discord Slash Commands. Utilizing Gemini Pro, the bot generates personalized coaching advice, kudos, and performance cards.",
+    shortDescription: "AI-powered fitness coach bot for Discord synced with Strava.",
+    role: "Serverless systems developer (Personal project)",
+    findings: [
+      "Architected an event-driven serverless pipeline using AWS API Gateway and SQS to ingest Strava activity webhooks and Discord Slash Commands.",
+      "Completely neutralized Lambda cold start latency by offloading webhook and command execution to SQS queues, guaranteeing rapid and reliable API Gateway handshakes.",
+      "Connected the Gemini API to process athletes' activity data.",
+      "Focused on using aws always free services"
+    ],
+    stack: ["AWS Lambda", "AWS SQS", "DynamoDB", "API Gateway", "Strava API", "Discord API", "Gemini API"],
+    visual: "grid",
+    images: [
+      "/RubBot/RubBot1.webp",
+      "/RubBot/RubBot2.webp",
+      "/RubBot/RubBot3.webp",
+      "/RubBot/RubBot4.webp",
+      "/RubBot/RubBot5.webp",
+    ],
+    otherImages: [
+      {
+        title: "System Architecture",
+        label: "Infrastructure",
+        url: "",
+        description: "The infrastructure pipeline ingests webhook events and Slash Commands via AWS API Gateway, routing them to SQS queues to decouple execution and prevent cold-start timeouts. Lambda workers then process the messages, store user credentials and session states in DynamoDB, fetch data via the Strava API, and generate coaching responses using Gemini Pro before delivering them to Discord."
+      }
+    ]
   },
   {
     title: "Resort Management Platform",

@@ -154,7 +154,7 @@ export default function Home() {
           <SectionHeader title="Projects" number="02" />
 
           <div className="border-t-2 border-orange/30">
-            {projects.slice(0, 3).map((project, i) => {
+            {projects.slice(0, 4).map((project, i) => {
               const isEven = i % 2 === 0;
               const projectSlug = slugify(project.title);
               return (
