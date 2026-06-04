@@ -87,7 +87,7 @@ export default function Home() {
                   </svg>
                 </button>
                 <a
-                  href="https://drive.google.com/file/d/1DFiTTCs2mdFpMvnHDZ2z48UvAIwQIhza/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1AFQAuZDt66Z8EbI6IlKtM5LZ5MOP1l2X/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-text-secondary hover:border-orange/30 hover:text-orange transition-colors duration-200 text-sm font-medium"
