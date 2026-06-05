@@ -57,13 +57,12 @@ export default function Home() {
                 </div>
               </div>
 
-              <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-text-primary">
-                Andrew
+              <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight text-text-primary">
+                Andrew<span className="text-orange">.</span>
               </h1>
 
               <p className="text-lg sm:text-xl text-text-secondary max-w-lg leading-relaxed">
-                Building reliable backends, wiring AI into workflows, and
-                keeping things boring where it counts. Based in the Philippines.
+                Building reliable backends and wiring AI into workflows. Based in Davao City, Philippines.
               </p>
 
               <div className="flex items-center gap-4 mt-4">
