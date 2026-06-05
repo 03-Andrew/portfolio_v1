@@ -24,6 +24,19 @@ export const metadata: Metadata = {
   title: "Backend Developer — Building systems that work",
   description:
     "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
+  openGraph: {
+    title: "Backend Developer — Building systems that work",
+    description: "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
+    url: "https://dreww.space",
+    siteName: "Andrei's Portfolio",
+    locale: "en_PH",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Backend Developer — Building systems that work",
+    description: "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
+  },
 };
 
 export default function RootLayout({

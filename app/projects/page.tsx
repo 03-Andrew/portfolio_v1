@@ -1,8 +1,12 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { projects as allProjects } from "../data/projects";
-import { slugify } from "../hooks/useModalUrlSync";
+import { slugify } from "../hooks/slugify";
+
+export const metadata: Metadata = {
+  title: "Projects | Andrew — Backend Developer",
+  description: "A detailed list of backend applications, APIs, cloud architectures, and open-source contributions built by Andrew.",
+};
 
 
 export default function ProjectsPage() {

@@ -28,8 +28,38 @@ export default function Home() {
     setSelectedItem: setSelectedCredential,
   });
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "James Andrei Nadela",
+      "jobTitle": "Backend Developer",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Davao",
+        "addressCountry": "PH"
+      },
+      "knowsAbout": [
+        "Backend Development",
+        "Cloud Engineering",
+        "AI Integration",
+        "FastAPI",
+        "Docker",
+        "Node.js",
+        "Python",
+        "PostgreSQL",
+        "Supabase",
+      ],
+    }
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SideNav />
       <div
         aria-hidden="true"
