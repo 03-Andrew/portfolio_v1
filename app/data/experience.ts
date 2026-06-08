@@ -13,8 +13,8 @@ export const experienceData: ExperienceData[] = [
         company: "Remarkablism Services Corporation | Turnkey Philippines",
         role: "Backend Developer Intern",
         date: "Dec 2025 - March 2026",
-        description: "Built and deployed the infrastructure for a client mobile application with a team of interns. Developed RESTful APIs using Fastify, designed database schemas, and hosted both the application and self-managed n8n workflows on DigitalOcean. Implemented CI/CD pipelines for streamlined deployments while gaining hands-on experience in cloud infrastructure, backend architecture, and development workflows.",
-        techStack: ["Fastify", "n8n", "DigitalOcean", "TypeScript", "Supabase"]
+        description: "Helped build the backend for a client mobile application with a team of interns. Developed RESTful APIs using Fastify, designed database schemas, and hosted both the application and self-managed n8n workflows on a DigitalOcean droplet. Implemented CI/CD pipelines for streamlined deployments while gaining hands-on experience in cloud computing, backend architecture, and development workflows.",
+        techStack: ["Fastify", "n8n", "DigitalOcean", "TypeScript", "React Native","Supabase"]
     },
     {
         logo: '/mmcm.jpeg',
