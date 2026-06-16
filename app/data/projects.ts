@@ -1,4 +1,5 @@
 export interface ProjectData {
+  order: number;
   title: string;
   label: string;
   date: string;
@@ -28,8 +29,9 @@ export interface ProjectData {
   aspectRatio?: "16/10" | "video";
 }
 
-export const projects: ProjectData[] = [
+const _projects: ProjectData[] = [
   {
+    order: 2,
     title: "Faculty Meeting AI Scheduler",
     label: "AI Automation",
     date: "October 2025",
@@ -73,6 +75,7 @@ export const projects: ProjectData[] = [
     ],
   },
   {
+    order: 3,
     title: "Filipino Speech Coach",
     label: "AI Integration",
     date: "July 2025",
@@ -109,6 +112,7 @@ export const projects: ProjectData[] = [
     ],
   },
   {
+    order: 4,
     title: "CluckTrack: IoT Coop Surveillance",
     label: "IoT & Computer Vision",
     date: "May 2024",
@@ -155,20 +159,21 @@ export const projects: ProjectData[] = [
     ],
   },
   {
+    order: 1,
     title: "Strava AI Coach Discord Bot",
     label: "Cloud Infra (In Progress)",
-    date: "May 2026",
+    date: "June 2026",
     description:
-      "A serverless, AI-driven fitness coach integrated directly into Discord. The bot ingests real-time activity and club webhook events from the Strava API, allowing athletes to trigger performance diagnostics via Discord Slash Commands. Utilizing Gemini Pro, the bot generates personalized coaching advice, kudos, and performance cards.",
+      "A serverless, AI-driven fitness coach integrated directly into Discord. The bot ingests real-time activity and club webhook events from the Strava API, allowing athletes to trigger performance diagnostics via Discord Slash Commands. Utilizing Deepseek API, the bot generates personalized coaching advice, kudos, and performance cards.",
     shortDescription: "AI-powered fitness coach bot for Discord synced with Strava.",
     role: "Serverless systems developer (Personal project)",
     findings: [
       "Architected an event-driven serverless pipeline using AWS API Gateway and SQS to ingest Strava activity webhooks and Discord Slash Commands.",
-      "Completely neutralized Lambda cold start latency by offloading webhook and command execution to SQS queues, guaranteeing rapid and reliable API Gateway handshakes.",
-      "Connected the Gemini API to process athletes' activity data.",
-      "Focused on using aws always free services"
+      "Built 3 Lambda functions: an API handler behind API Gateway for sync routing and request validation, an SQS-triggered worker for async processing of heavy commands with DLQ retry, and an EventBridge Scheduler-triggered function for automated weekly athlete digests.",
+      "Designed a single-table DynamoDB schema with 6 entity types sharing PK/SK under USER#{id} to manage user credentials, session states, and activity logs with minimal latency.",
+      "Connected Deepseek API to process athletes' activity data, for insight extraction and personalized coaching response generation.",
     ],
-    stack: ["AWS Lambda", "AWS SQS", "DynamoDB", "API Gateway", "Strava API", "Discord API", "Gemini API"],
+    stack: ["AWS Lambda", "SQS", "DynamoDB", "EventBridge", "API Gateway", "Strava API", "Discord API", "Deepseek API"],
     visual: "grid",
     images: [
       "/RubBot/RubBot1.webp",
@@ -181,12 +186,16 @@ export const projects: ProjectData[] = [
       {
         title: "System Architecture",
         label: "Infrastructure",
-        url: "",
-        description: "The infrastructure pipeline ingests webhook events and Slash Commands via AWS API Gateway, routing them to SQS queues to decouple execution and prevent cold-start timeouts. Lambda workers then process the messages, store user credentials and session states in DynamoDB, fetch data via the Strava API, and generate coaching responses using Gemini Pro before delivering them to Discord."
+        url: "/RubBot/Archi.webp",
+        description: "A fully serverless AWS architecture with two distinct ingestion paths — Strava webhooks and Discord Slash Commands — both entering through a single API Gateway. Discord requires a response within 3 seconds or it surfaces an error to the user, while Strava requires a 2-second acknowledgment to consider a webhook delivery successful. SQS sits between the gateway and the Lambda workers as an async buffer, letting the API handler immediately return a 200 to both platforms while heavy processing happens in the background — preventing user-facing errors and keeping UX smooth. A separate EventBridge Scheduler lane sits outside the request path, driving the weekly digest independently of any user-triggered event."
       }
-    ]
+    ],
+    links: {
+      code: "https://github.com/03-Andrew/RunBot",
+    }
   },
   {
+    order: 5,
     title: "Resort Management Platform",
     label: "Full-Stack",
     date: "February 2025",
@@ -223,3 +232,5 @@ export const projects: ProjectData[] = [
     ],
   },
 ];
+
+export const projects = _projects.slice().sort((a, b) => a.order - b.order);
