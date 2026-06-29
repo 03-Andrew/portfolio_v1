@@ -21,11 +21,11 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Backend Developer — Building systems that work",
+  title: "Backend Developer",
   description:
     "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
   openGraph: {
-    title: "Backend Developer — Building systems that work",
+    title: "Backend Developer",
     description: "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
     url: "https://dreww.space",
     siteName: "Andrei's Portfolio",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Backend Developer — Building systems that work",
+    title: "Backend Developer",
     description: "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
   },
 };
