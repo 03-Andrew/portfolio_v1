@@ -4,8 +4,8 @@ import { projects as allProjects } from "../data/projects";
 import { slugify } from "../hooks/slugify";
 
 export const metadata: Metadata = {
-  title: "Projects | Andrew — Backend Developer",
-  description: "A detailed list of backend applications, APIs, cloud architectures, and open-source contributions built by Andrew.",
+  title: "Projects | James Andrei Nadela — Backend Developer",
+  description: "Backend applications, APIs, cloud architectures, and open-source contributions built by James Andrei Nadela.",
 };
 
 

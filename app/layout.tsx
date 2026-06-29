@@ -21,21 +21,21 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Backend Developer",
+  title: "James Andrei Nadela — Backend Developer",
   description:
-    "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
+    "James Andrei Nadela — Backend Developer and aspiring Cloud Engineer based in Davao City, Philippines. Systems, AI integrations, and full-stack projects.",
   openGraph: {
-    title: "Backend Developer",
-    description: "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
+    title: "James Andrei Nadela — Backend Developer",
+    description: "James Andrei Nadela — Backend Developer and aspiring Cloud Engineer based in Davao City, Philippines. Systems, AI integrations, and full-stack projects.",
     url: "https://dreww.space",
-    siteName: "Andrei's Portfolio",
+    siteName: "James Andrei Nadela — Portfolio",
     locale: "en_PH",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Backend Developer",
-    description: "Portfolio of a backend developer aspiring to cloud engineering. Systems, AI integrations, and full-stack projects.",
+    title: "James Andrei Nadela — Backend Developer",
+    description: "James Andrei Nadela — Backend Developer and aspiring Cloud Engineer based in Davao City, Philippines. Systems, AI integrations, and full-stack projects.",
   },
 };
 
