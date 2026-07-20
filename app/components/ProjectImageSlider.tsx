@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import ImageLightbox from "./ImageLightbox";
 
 interface ProjectImageSliderProps {
   images: string[];
@@ -140,21 +141,6 @@ export default function ProjectImageSlider({
     };
   }, [currentIndex, isVideoSlide, currentSlide]);
 
-  // Close lightbox on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setLightboxImageUrl(null);
-      }
-    };
-    if (lightboxImageUrl) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [lightboxImageUrl]);
-
   if (!slides || slides.length === 0) return null;
 
   // Determine active aspect ratio (use calculated tallest image ratio, or fall back to prop configuration)
@@ -177,13 +163,6 @@ export default function ProjectImageSlider({
             .animate-slider-progress {
               transform-origin: left;
               animation: slider-progress-run ${INTERVAL_MS}ms linear forwards;
-            }
-            @keyframes fade-in {
-              from { opacity: 0; }
-              to { opacity: 1; }
-            }
-            .animate-fade-in {
-              animation: fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             }
           `,
         }}
@@ -335,44 +314,12 @@ export default function ProjectImageSlider({
         </div>
       )}
 
-      {/* Lightbox Modal (Larger Image Zoom overlay) */}
+      {/* Lightbox Modal */}
       {lightboxImageUrl && (
-        <div
-          onClick={() => setLightboxImageUrl(null)}
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-10 cursor-zoom-out animate-fade-in"
-        >
-          {/* Close button */}
-          <button
-            onClick={() => setLightboxImageUrl(null)}
-            className="absolute top-6 right-6 text-white hover:text-orange p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-[110] cursor-pointer"
-            aria-label="Close lightbox"
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M12 4L4 12M4 4l8 8"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-
-          {/* Large Image container */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative max-w-full max-h-full flex flex-col items-center justify-center"
-          >
-            <img
-              src={lightboxImageUrl}
-              alt="Enlarged screenshot view"
-              className="max-w-[92vw] max-h-[85vh] object-contain rounded-md border border-white/10 shadow-2xl"
-            />
-            <p className="absolute -bottom-8 left-0 right-0 text-center text-[10px] text-white/40 font-mono uppercase tracking-wider">
-              Click anywhere outside the image to close
-            </p>
-          </div>
-        </div>
+        <ImageLightbox
+          imageUrl={lightboxImageUrl}
+          onClose={() => setLightboxImageUrl(null)}
+        />
       )}
     </div>
   );

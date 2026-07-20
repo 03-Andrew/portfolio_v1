@@ -5,6 +5,7 @@ import { slugify } from "@/app/hooks/slugify";
 import ProjectVisual from "@/app/components/ProjectVisual";
 import BackButton from "@/app/components/BackButton";
 import ProjectImageSlider from "@/app/components/ProjectImageSlider";
+import ZoomableImage from "@/app/components/ZoomableImage";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -268,14 +269,10 @@ export default async function ProjectDetailPage({ params }: Props) {
 
                     {other.url && (
                       <div className="w-full">
-                        <div className="relative w-full overflow-hidden rounded-lg bg-surface border border-border/20 group hover:border-border/40 transition-colors duration-300">
-                          <img
-                            src={other.url}
-                            alt={other.title}
-                            className="w-full h-auto object-contain block"
-                            loading="lazy"
-                          />
-                        </div>
+                        <ZoomableImage
+                          src={other.url}
+                          alt={other.title}
+                        />
                       </div>
                     )}
 
