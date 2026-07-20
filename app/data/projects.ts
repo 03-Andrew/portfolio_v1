@@ -36,11 +36,11 @@ const _projects: ProjectData[] = [
     label: "AI Automation",
     date: "October 2025",
     description:
-      "An AI-powered conversational scheduling platform for academic faculty that merges agentic AI workflow automation with role-aware logic. Built with Next.js and an n8n-orchestrated AI agent connected to a PostgreSQL database, the system leverages Azure OAuth for secure institutional authentication. It autonomously parses user intent via an AI chatbot, resolves scheduling conflicts through an internal algorithmic pipeline, and triggers reliable webhook workflows to automate multi-room bookings and calendar synchronization.",
+      "An AI-powered conversational scheduling platform for academic faculty that merges agentic AI workflow automation with role-aware logic. Built with Next.js and an n8n-orchestrated AI agent connected to a PostgreSQL database, the system leverages Microsoft OAuth for secure institutional authentication. It autonomously parses user intent via an AI chatbot, resolves scheduling conflicts through an internal algorithmic pipeline, and triggers reliable webhook workflows to automate multi-room bookings and calendar synchronization.",
     shortDescription: "AI scheduler for faculty meetings.",
     role: "Automation developer",
     findings: [
-      "Connected microsoft oauth to securely authenticate students and faculty with their institutional accounts",
+      "Connected Microsoft oauth to securely authenticate students and faculty with their institutional accounts",
       "Developed a custom AI agent workflow in n8n that autonomously parses natural language scheduling requests, checks for conflicts against a PostgreSQL database, and executes multi-room booking logic with conditional branching.",
     ],
     stack: ["Next.js", "n8n", "PostgreSQL", "Prisma"],
@@ -176,17 +176,17 @@ const _projects: ProjectData[] = [
     stack: ["AWS Lambda", "SQS", "DynamoDB", "EventBridge", "API Gateway", "Strava API", "Discord API", "Deepseek API"],
     visual: "grid",
     images: [
-      "/RubBot/RubBot1.webp",
-      "/RubBot/RubBot2.webp",
-      "/RubBot/RubBot3.webp",
-      "/RubBot/RubBot4.webp",
-      "/RubBot/RubBot5.webp",
+      "/RunBot/RunBot1.webp",
+      "/RunBot/RunBot2.webp",
+      "/RunBot/RunBot3.webp",
+      "/RunBot/RunBot4.webp",
+      "/RunBot/RunBot5.webp",
     ],
     otherImages: [
       {
         title: "System Architecture",
         label: "Infrastructure",
-        url: "/RubBot/Archi.webp",
+        url: "/RunBot/Archi.webp",
         description: "A fully serverless AWS architecture with two distinct ingestion paths — Strava webhooks and Discord Slash Commands — both entering through a single API Gateway. Discord requires a response within 3 seconds or it surfaces an error to the user, while Strava requires a 2-second acknowledgment to consider a webhook delivery successful. SQS sits between the gateway and the Lambda workers as an async buffer, letting the API handler immediately return a 200 to both platforms while heavy processing happens in the background — preventing user-facing errors and keeping UX smooth. A separate EventBridge Scheduler lane sits outside the request path, driving the weekly digest independently of any user-triggered event."
       }
     ],
@@ -208,7 +208,7 @@ const _projects: ProjectData[] = [
       "Designed ER diagrams and implemented a normalized PostgreSQL database schema to manage complex relationships between guests, rooms, bookings, and billings.",
       "Developed RESTful API endpoints in Django to handle resort operations",
       "Deployed the application in digitalocean app platform, utilizing managed PostgreSQL for data persistence and ensuring secure, scalable hosting.",
-      "Implemented Django APIs to React frontend",
+      "Integrated Django REST endpoints with the React frontend, handling auth state and booking flows",
     ],
     stack: ["Django", "React", "PostgreSQL"],
     visual: "grid",
