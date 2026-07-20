@@ -32,17 +32,20 @@ export default function ThemeProvider({
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const current = sessionStorage.getItem("currentPath");
-      if (current && current !== pathname) {
+  // Track navigation synchronously during render so child mount effects
+  // (e.g. BackButton) see the updated values — parent update effects can
+  // run after child mount effects in React's effect ordering.
+  if (typeof window !== "undefined") {
+    const current = sessionStorage.getItem("currentPath");
+    if (current !== pathname) {
+      if (current) {
         sessionStorage.setItem("previousPath", current);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).__navigatedWithinApp = true;
       }
       sessionStorage.setItem("currentPath", pathname);
     }
-  }, [pathname]);
+  }
 
   useEffect(() => {
     const stored = getStored();
