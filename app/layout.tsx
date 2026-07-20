@@ -4,6 +4,7 @@ import ThemeProvider from "./components/ThemeProvider";
 import ThemeToggle from "./components/ThemeToggle";
 import ScrollProgress from "./components/ScrollProgress";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geist = Geist({
   variable: "--font-geist",
@@ -69,6 +70,7 @@ export default function RootLayout({
             <ThemeToggle />
           </div>
           {children}
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
