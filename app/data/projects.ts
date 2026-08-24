@@ -161,7 +161,7 @@ const _projects: ProjectData[] = [
   {
     order: 1,
     title: "Strava AI Coach Discord Bot",
-    label: "Cloud Infra (In Progress)",
+    label: "Cloud Infra",
     date: "June 2026",
     description:
       "A serverless, AI-driven fitness coach integrated directly into Discord. The bot ingests real-time activity and club webhook events from the Strava API, allowing athletes to trigger performance diagnostics via Discord Slash Commands. Utilizing Deepseek API, the bot generates personalized coaching advice, kudos, and performance cards.",
