@@ -12,7 +12,7 @@ const STACK: StackRow[] = [
   { category: "Frontend", techs: "Next.js · React" },
   { category: "Infra", techs: "Docker · DigitalOcean" },
   { category: "Data", techs: "PostgreSQL" },
-  { category: "Automation", techs: "n8n" },
+  { category: "Automation", techs: "n8n · LangGraph" },
 ];
 
 export default function SkillConstellation({ className = "" }: { className?: string }) {
