@@ -235,7 +235,6 @@ const _projects: ProjectData[] = [
       images: [                                                                                                                                                                             
         "/Beach/mockup (3).webp",                                                                                                                                                           
         "/Beach/dashboard.webp",                                                                                                                                                            
-        "/Beach/dashboard2.webp",                                                                                                                                                           
       ],                                                                                                                                                                                    
       aspectRatio: "video",                                                                                                                                                                 
       otherImages: [                                                                                                                                                                        
