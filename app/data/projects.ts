@@ -31,7 +31,7 @@ export interface ProjectData {
 
 const _projects: ProjectData[] = [
   {
-    order: 2,
+    order: 3,
     title: "Faculty Meeting AI Scheduler",
     label: "AI Automation",
     date: "October 2025",
@@ -75,7 +75,7 @@ const _projects: ProjectData[] = [
     ],
   },
   {
-    order: 3,
+    order: 5,
     title: "Filipino Speech Coach",
     label: "AI Integration",
     date: "July 2025",
@@ -159,7 +159,7 @@ const _projects: ProjectData[] = [
     ],
   },
   {
-    order: 1,
+    order: 2,
     title: "Strava AI Coach Discord Bot",
     label: "Cloud Infra",
     date: "June 2026",
@@ -194,43 +194,60 @@ const _projects: ProjectData[] = [
       code: "https://github.com/03-Andrew/RunBot",
     }
   },
-  {
-    order: 5,
-    title: "Resort Management Platform",
-    label: "Full-Stack",
-    date: "February 2025",
-    description:
-      "A management system handling the full resort workflow. The Django backend manages bookings, room inventory, billing, and housekeeping assignments. The React frontend provides staff with a simple interface for front-desk operations.",
-    shortDescription:
-      "End-to-end resort management system that streamline resort processes.",
-    role: "Fullstack dev (Team of 5)",
-    findings: [
-      "Designed ER diagrams and implemented a normalized PostgreSQL database schema to manage complex relationships between guests, rooms, bookings, and billings.",
-      "Developed RESTful API endpoints in Django to handle resort operations",
-      "Deployed the application in digitalocean app platform, utilizing managed PostgreSQL for data persistence and ensuring secure, scalable hosting.",
-      "Integrated Django REST endpoints with the React frontend, handling auth state and booking flows",
-    ],
-    stack: ["Django", "React", "PostgreSQL"],
-    visual: "grid",
-    links: {
-      video: "https://www.youtube.com/watch?v=nfA3tLsWmW0",
-    },
-    images: [
-      "/Beach/mockup (3).webp",
-      "/Beach/dashboard.webp",
-      "/Beach/dashboard2.webp",
-    ],
-    aspectRatio: "video",
-    otherImages: [
-      {
-        title: "System Architecture",
-        label: "Infrastructure",
-        url: "",
-        description:
-          "A decoupled system architecture. The React frontend is hosted on Vercel for rapid delivery, communicating via HTTPS with a Django backend running on DigitalOcean App Platform. Data persistence is managed on DigitalOcean PostgreSQL.",
-      },
-    ],
-  },
+   {                                                                                                                                                                                       
+      order: 1,                                                                                                                                                                             
+      title: "Resort Booking System: Backend & Infrastructure Refactor",                                                                                                                    
+      label: "Backend / Infrastructure / AI",                                                                                                                                               
+      date: "August 2026",                                                                                                                                                                  
+      description:                                                                                                                                                                          
+      "An architectural overhaul and AI modernization of a resort booking system originally developed by a 5-member team. Built on top of the core Django REST backend, this evolution introduced Redis distributed locking for race-condition prevention, sub-millisecond query optimization, Celery-driven PayMongo automation, and a multi-turn LangGraph  booking agent with a RAG FAQ concierge hosted on AWS.",
+      shortDescription:                                                                                                                                                                     
+        "Comprehensive Django backend and AWS infrastructure refactor featuring LangGraph AI booking and Celery task queues.",                                                              
+      role: "Backend & Infrastructure",                                                                                                                                            
+      findings: [                                                                                                                                                                           
+        "Eliminated double-booking race conditions using Redis distributed locks during room selection, while offloading PayMongo webhook processing and automated confirmation emails to an asynchronous Celery queue.",                                                                                                                                                              
+        "Reduced database queries by 78% to 99.5% across 10 endpoints by eliminating N+1 query patterns with batch prefetching, dropping worst-case queries from 2,103 down to 12 on a 100-record benchmark.",                                                                                                                                                                       
+        "Migrated from DigitalOcean PaaS to AWS (IaC) by architecting a custom VPC with separated public/private subnets, containerizing services via Docker Compose on EC2, and migrating data persistence to AWS RDS PostgreSQL.",                                                                                                                                                      
+        "Built a multi-turn conversational booking agent and RAG hotel concierge on top of the backend using LangGraph, Google Gemini/OpenAI, and Pydantic structured output extraction for deterministic state management.",                                                                                                                                                         
+        "Implemented full observability, multi-turn state testing, and latency/token tracing for the AI agent pipelines using LangSmith.",                                                  
+      ],                                                                                                                                                                                    
+      stack: [                                                                                                                                                                              
+        "Django",                                                                                                                                                                           
+        "PostgreSQL",                                                                                                                                                                       
+        "Redis",                                                                                                                                                                            
+        "Celery",                                                                                                                                                                           
+        "LangGraph",                                                                                                                                                                        
+        "LangSmith",                                                                                                                                                                        
+        "RAG",                                                                                                                                                                              
+        "Docker",  
+        "Terraform",                                                                                                                                                                         
+        "AWS VPC",                                                                                                                                                                          
+        "AWS EC2",                                                                                                                                                                          
+        "AWS RDS",                                                                                                                                                                          
+        "Nginx",                                                                                                                                                                            
+        "PayMongo",                                                                                                                                                                         
+      ],                                                                                                                                                                                    
+      visual: "grid",                                                                                                                                                                       
+      links: {  
+        code: "https://github.com/03-Andrew/Refactor-kawaiiAPI",                                                                                                                                                                            
+        video: "https://www.youtube.com/watch?v=nfA3tLsWmW0",                                                                                                                               
+      },                                                                                                                                                                                    
+      images: [                                                                                                                                                                             
+        "/Beach/mockup (3).webp",                                                                                                                                                           
+        "/Beach/dashboard.webp",                                                                                                                                                            
+        "/Beach/dashboard2.webp",                                                                                                                                                           
+      ],                                                                                                                                                                                    
+      aspectRatio: "video",                                                                                                                                                                 
+      otherImages: [                                                                                                                                                                        
+        {                                                                                                                                                                                   
+          title: "AWS & System Architecture",                                                                                                                                               
+          label: "Infrastructure",                                                                                                                                                          
+          url: "",                                                                                                                                                                          
+          description:                                                                                                                                                                      
+            "Containerized Django services, Celery workers and Redis database hosted on AWS EC2 within a custom VPC, routed through an Nginx reverse proxy. Sensitive workloads and data persistence are isolated in private subnets via AWS RDS PostgreSQL, while LangGraph and LangSmith orchestrate and monitor the conversational AI booking layer.",                                
+        },                                                                                                                                                                                  
+      ],                                                                                                                                                                                    
+    }          
 ];
 
 export const projects = _projects.slice().sort((a, b) => a.order - b.order);
